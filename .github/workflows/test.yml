@@ -1,0 +1,105 @@
+name: Playwright BDD Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: latest
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-py311-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            venv-${{ runner.os }}-py311-
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Install project
+        run: poetry install --no-interaction
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install Playwright browsers
+        run: poetry run playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Run tests
+        env:
+          BASE_URL: https://www.saucedemo.com
+          BROWSER: ${{ matrix.browser }}
+          HEADLESS: true
+          SLOW_MO: 0
+          SCREENSHOT_ON_FAILURE: true
+          VIDEO_ON_FAILURE: true
+        run: poetry run pytest tests/ -v --tb=short
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results-${{ matrix.browser }}
+          path: allure-results/
+          retention-days: 7
+
+  allure-report:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results-*
+          path: allure-results-merged/
+
+      - name: Merge Allure results
+        run: |
+          mkdir -p allure-results-merged/all
+          for dir in allure-results-merged/allure-results-*; do
+            if [ -d "$dir" ]; then
+              cp -r "$dir"/.* "$dir"/.. allure-results-merged/all/ 2>/dev/null || true
+            fi
+          done
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: allure-results-merged/all
+          allure_history: allure-report
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 14

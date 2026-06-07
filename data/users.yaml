@@ -1,0 +1,20 @@
+valid_user:
+  username: "standard_user"
+  password: "secret_sauce"
+
+locked_user:
+  username: "locked_out_user"
+  password: "secret_sauce"
+
+empty_user:
+  username: ""
+  password: ""
+
+invalid_user:
+  username: "invalid_user"
+  password: "invalid_password"
+
+checkout:
+  first_name: "John"
+  last_name: "Doe"
+  zip_code: "12345"
