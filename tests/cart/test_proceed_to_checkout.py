@@ -4,8 +4,10 @@ from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import ElementDTO
+from utils.markers import regression
 
 
+@regression
 @Gherkin("cart.feature", "User can proceed to checkout from cart")
 def test_proceed_to_checkout(login_page: LoginPage, products_page: ProductsPage, cart_page: CartPage, checkout_page: CheckoutPage, steps: Steps, checker) -> None:
     with steps.given():

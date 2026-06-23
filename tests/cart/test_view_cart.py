@@ -3,8 +3,11 @@ from pages.products_page import ProductsPage
 from pages.cart_page import CartPage
 from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import ElementDTO, TextElementDTO
+from utils.markers import smoke, critical
 
 
+@smoke
+@critical
 @Gherkin("cart.feature", "User can view cart with added products")
 def test_view_cart(login_page: LoginPage, products_page: ProductsPage, cart_page: CartPage, steps: Steps, checker) -> None:
     with steps.given():

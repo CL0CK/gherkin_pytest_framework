@@ -4,9 +4,6 @@ from dataclasses import dataclass
 @dataclass
 class ValueTextMixin:
     value_text: str | None = None
-    expected_fail_value_text: str | None = None
-    expected_fail_value_text_task: str | None = None
-    expected_fail_all_text_values: bool = False
 
 
 @dataclass

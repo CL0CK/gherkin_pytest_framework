@@ -4,8 +4,10 @@ from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import ElementDTO
+from utils.markers import regression
 
 
+@regression
 @Gherkin("checkout.feature", "User cancels checkout and returns to cart")
 def test_cancel_checkout(login_page: LoginPage, products_page: ProductsPage, cart_page: CartPage, checkout_page: CheckoutPage, steps: Steps, checker) -> None:
     with steps.given():

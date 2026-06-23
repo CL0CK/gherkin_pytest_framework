@@ -9,7 +9,7 @@ logger.remove()
 logger.add(
     codecs.getwriter("utf-8")(sys.stdout.buffer),
     level="INFO",
-    format="<green>{time:HH:mm:ss}</green> | "
+    format="<dim>{time:HH:mm:ss.SSS}</dim> | "
            "<level>{level: <8}</level> | "
            "<cyan>{message}</cyan>",
 )

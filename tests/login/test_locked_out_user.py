@@ -1,8 +1,11 @@
 from pages.login_page import LoginPage
 from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import TextElementDTO
+from utils.markers import smoke, critical
 
 
+@smoke
+@critical
 @Gherkin("login.feature", "Login with locked out user")
 def test_locked_out_user(login_page: LoginPage, steps: Steps, checker) -> None:
     with steps.given():

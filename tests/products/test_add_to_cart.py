@@ -2,8 +2,10 @@ from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
 from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import TextElementDTO
+from utils.markers import regression
 
 
+@regression
 @Gherkin("products.feature", "User can add a product to cart")
 def test_add_to_cart(login_page: LoginPage, products_page: ProductsPage, steps: Steps, checker) -> None:
     with steps.given():

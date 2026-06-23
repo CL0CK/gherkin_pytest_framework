@@ -4,8 +4,11 @@ from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import ElementDTO, TextElementDTO
+from utils.markers import smoke, critical
 
 
+@smoke
+@critical
 @Gherkin("checkout.feature", "User completes full checkout flow")
 def test_full_checkout(login_page: LoginPage, products_page: ProductsPage, cart_page: CartPage, checkout_page: CheckoutPage, steps: Steps, checker) -> None:
     with steps.given():

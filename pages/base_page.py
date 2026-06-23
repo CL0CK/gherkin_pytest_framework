@@ -1,8 +1,7 @@
 from playwright.sync_api import Page, Locator
 from utils.config import Settings
-from utils.logger import get_logger
+from utils.logger import get_logger, PageLogger
 from utils.element import Element
-from utils.checker.logging_page import LoggingPage
 
 logger = get_logger()
 
@@ -15,7 +14,7 @@ class BasePage:
                 attr_value._name = attr_name
 
     def __init__(self, page: Page, config: Settings = None):
-        self.page = LoggingPage(page)
+        self.page = PageLogger(page)
         self.config = config or Settings()
 
     def navigate(self, path: str = "/"):

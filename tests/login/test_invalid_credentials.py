@@ -1,8 +1,10 @@
 from pages.login_page import LoginPage
 from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import TextElementDTO
+from utils.markers import smoke
 
 
+@smoke
 @Gherkin("login.feature", "Login with invalid credentials")
 def test_invalid_credentials(login_page: LoginPage, steps: Steps, checker) -> None:
     with steps.given():

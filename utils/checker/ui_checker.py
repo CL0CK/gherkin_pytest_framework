@@ -1,6 +1,6 @@
-import allure
-from dataclasses import fields
 from playwright.sync_api import Page, Locator
+
+from utils.allure import allure_step
 from utils.element import Element
 from utils.checker.checkers.text_checker import TextChecker
 from utils.checker.checkers.presence_checker import PresenceChecker
@@ -14,18 +14,9 @@ from utils.checker.dto import (
     ElementDTO,
     CountDTO,
 )
-from utils.logger import get_logger
+from utils.logger.logger import get_logger
 
 logger = get_logger()
-
-
-def _dto_details_text(dto) -> str:
-    """Динамически собирает все поля DTO в читаемый текст."""
-    lines = []
-    for field in fields(dto):
-        value = getattr(dto, field.name)
-        lines.append(f"{field.name}: {value}")
-    return "\n".join(lines)
 
 
 class UIChecker:
@@ -48,70 +39,45 @@ class UIChecker:
     def _log_check(self, check_type: str, name: str, dto):
         logger.info(f"  ✓ {check_type}: {name} ({dto})")
 
+    @allure_step
     def check_text(self, selector, dto: TextElementDTO):
         sel, name = self._resolve(selector)
         self._log_check("check_text", name, dto)
-        with allure.step(f"check_text: {name}"):
-            allure.attach(
-                _dto_details_text(dto),
-                name="dto_params",
-                attachment_type=allure.attachment_type.TEXT,
-            )
-            self.text.check(self._locator(sel), dto)
+        self.text.check(self._locator(sel), dto)
 
+    @allure_step
     def check_button(self, selector, dto: ButtonElementDTO):
         sel, name = self._resolve(selector)
         self._log_check("check_button", name, dto)
-        with allure.step(f"check_button: {name}"):
-            allure.attach(
-                _dto_details_text(dto),
-                name="dto_params",
-                attachment_type=allure.attachment_type.TEXT,
-            )
-            loc = self._locator(sel)
-            self.presence.check(loc, dto)
-            self.text.check(loc, dto)
+        loc = self._locator(sel)
+        self.presence.check(loc, dto)
+        self.text.check(loc, dto)
 
+    @allure_step
     def check_image(self, selector, dto: ImageElementDTO):
         sel, name = self._resolve(selector)
         self._log_check("check_image", name, dto)
-        with allure.step(f"check_image: {name}"):
-            allure.attach(
-                _dto_details_text(dto),
-                name="dto_params",
-                attachment_type=allure.attachment_type.TEXT,
+        loc = self._locator(sel)
+        self.presence.check(loc, dto)
+        if dto.src_contains is not None:
+            actual_src = loc.get_attribute("src")
+            assert dto.src_contains in actual_src, (
+                f"Expected '{dto.src_contains}' in src '{actual_src}'"
             )
-            loc = self._locator(sel)
-            self.presence.check(loc, dto)
-            if dto.src_contains is not None:
-                actual_src = loc.get_attribute("src")
-                assert dto.src_contains in actual_src, (
-                    f"Expected '{dto.src_contains}' in src '{actual_src}'"
-                )
-            if dto.alt_text is not None:
-                actual_alt = loc.get_attribute("alt")
-                assert actual_alt == dto.alt_text, (
-                    f"Expected alt '{dto.alt_text}', got '{actual_alt}'"
-                )
+        if dto.alt_text is not None:
+            actual_alt = loc.get_attribute("alt")
+            assert actual_alt == dto.alt_text, (
+                f"Expected alt '{dto.alt_text}', got '{actual_alt}'"
+            )
 
+    @allure_step
     def check_presence(self, selector, dto: ElementDTO):
         sel, name = self._resolve(selector)
         self._log_check("check_presence", name, dto)
-        with allure.step(f"check_presence: {name}"):
-            allure.attach(
-                _dto_details_text(dto),
-                name="dto_params",
-                attachment_type=allure.attachment_type.TEXT,
-            )
-            self.presence.check(self._locator(sel), dto)
+        self.presence.check(self._locator(sel), dto)
 
+    @allure_step
     def check_count(self, selector, dto: CountDTO):
         sel, name = self._resolve(selector)
         self._log_check("check_count", name, dto)
-        with allure.step(f"check_count: {name}"):
-            allure.attach(
-                _dto_details_text(dto),
-                name="dto_params",
-                attachment_type=allure.attachment_type.TEXT,
-            )
-            self.count.check(self._locator(sel), dto)
+        self.count.check(self._locator(sel), dto)
