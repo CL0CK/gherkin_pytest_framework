@@ -1,7 +1,7 @@
 from pages.login_page import LoginPage
-from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import TextElementDTO
-from utils.markers import smoke, critical
+from utils.markers import critical, smoke
+from utils.steps_wrapper import Gherkin, Steps
 
 
 @smoke
@@ -15,4 +15,4 @@ def test_locked_out_user(login_page: LoginPage, steps: Steps, checker) -> None:
         with steps.when():
             login_page.login("locked_out_user", "secret_sauce")
         with steps.then():
-            checker.check_text(login_page.ERROR_CONTAINER, TextElementDTO(value_text="Sorry", contains_text=True))
+            checker.text.check(login_page.ERROR_CONTAINER, TextElementDTO(value_text="Sorry", contains_text=True))

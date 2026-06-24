@@ -1,7 +1,7 @@
-import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Literal
+import re
+from typing import Literal, cast
 
 
 @dataclass
@@ -49,7 +49,7 @@ def _parse(content: str) -> GherkinFeature:
             continue
 
         if stripped.startswith("Feature:"):
-            feature.name = stripped[len("Feature:"):].strip()
+            feature.name = stripped[len("Feature:") :].strip()
             continue
 
         if stripped.startswith("@"):
@@ -58,9 +58,7 @@ def _parse(content: str) -> GherkinFeature:
             continue
 
         if stripped.startswith("Scenario:"):
-            current_scenario = GherkinScenario(
-                name=stripped[len("Scenario:"):].strip()
-            )
+            current_scenario = GherkinScenario(name=stripped[len("Scenario:") :].strip())
             step_counter = 0
             feature.scenarios.append(current_scenario)
             continue
@@ -80,8 +78,8 @@ def _parse(content: str) -> GherkinFeature:
 def _parse_step(line: str, last_number: int) -> GherkinStep | None:
     for keyword in ("Given ", "When ", "Then ", "And "):
         if line.startswith(keyword):
-            step_type = keyword.strip().lower()
-            rest = line[len(keyword):]
+            step_type = cast(Literal["given", "when", "then", "and"], keyword.strip().lower())
+            rest = line[len(keyword) :]
 
             step_num_match = re.match(r"Step\s+(\d+):\s*(.*)", rest)
             if step_num_match:
@@ -106,7 +104,4 @@ def get_scenario_by_name(feature_path: str, scenario_name: str) -> GherkinScenar
         if scenario.name.lower() == scenario_name.lower():
             return scenario
     available = [s.name for s in feature.scenarios]
-    raise ValueError(
-        f"Scenario '{scenario_name}' not found in '{feature_path}'. "
-        f"Available: {available}"
-    )
+    raise ValueError(f"Scenario '{scenario_name}' not found in '{feature_path}'. " f"Available: {available}")

@@ -1,8 +1,8 @@
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
-from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import CountDTO
 from utils.markers import smoke
+from utils.steps_wrapper import Gherkin, Steps
 
 
 @smoke
@@ -16,4 +16,4 @@ def test_view_products(login_page: LoginPage, products_page: ProductsPage, steps
         with steps.when():
             pass
         with steps.then():
-            checker.check_count(products_page.PRODUCT_CONTAINER, CountDTO(expected=6))
+            checker.count.check(products_page.PRODUCT_CONTAINER, CountDTO(expected=6))

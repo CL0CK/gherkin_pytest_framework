@@ -1,8 +1,8 @@
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
-from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import ElementDTO
 from utils.markers import regression
+from utils.steps_wrapper import Gherkin, Steps
 
 
 @regression
@@ -17,4 +17,4 @@ def test_remove_from_cart(login_page: LoginPage, products_page: ProductsPage, st
         with steps.when():
             products_page.remove_product_from_cart_by_name("Sauce Labs Backpack")
         with steps.then():
-            checker.check_presence(products_page.CART_BADGE, ElementDTO(is_hidden=True))
+            checker.common.check_presence(products_page.CART_BADGE, ElementDTO(is_visible=True, is_hidden=True))

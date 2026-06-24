@@ -1,31 +1,32 @@
 from dataclasses import dataclass
+
 from utils.checker.mixins import (
-    ValueTextMixin,
+    PresenceMixin,
     ValueColorMixin,
     ValueFontMixin,
-    PresenceMixin,
+    ValueTextMixin,
 )
-
-
-@dataclass
-class TextElementDTO(ValueTextMixin, ValueColorMixin, ValueFontMixin, PresenceMixin):
-    contains_text: bool = False
-
-
-@dataclass
-class ButtonElementDTO(ValueTextMixin, ValueColorMixin, PresenceMixin):
-    is_enabled: bool = True
-
-
-@dataclass
-class ImageElementDTO(PresenceMixin):
-    src_contains: str | None = None
-    alt_text: str | None = None
 
 
 @dataclass
 class ElementDTO(PresenceMixin):
     pass
+
+
+@dataclass
+class TextElementDTO(ValueTextMixin, ValueColorMixin, ValueFontMixin, ElementDTO):
+    contains_text: bool = False
+
+
+@dataclass
+class ButtonElementDTO(ValueTextMixin, ValueColorMixin, ElementDTO):
+    is_enabled: bool = True
+
+
+@dataclass
+class ImageElementDTO(ElementDTO):
+    src_contains: str | None = None
+    alt_text: str | None = None
 
 
 @dataclass

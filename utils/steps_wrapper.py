@@ -1,24 +1,26 @@
-import allure
-import pytest
+from collections.abc import Callable
 from contextlib import contextmanager
 from functools import wraps
-from typing import Callable
+from typing import Any
+
+import allure
+
+from utils.checker.context import CheckerContext
 from utils.gherkin_parser import (
-    parse_feature_file,
-    get_scenario_by_name,
     GherkinScenario,
     GherkinStep,
+    get_scenario_by_name,
+    parse_feature_file,
 )
-from utils.checker.context import CheckerContext
 from utils.logger import get_logger
 
 logger = get_logger()
 
 
 class Steps:
-    def __init__(self, scenario: GherkinScenario = None):
+    def __init__(self, scenario: GherkinScenario | None = None):
         self._scenario = scenario
-        self._current_step: GherkinStep = None
+        self._current_step: GherkinStep | None = None
         self._step_index: int = 0
         self._given_index: int = 0
 
@@ -74,10 +76,10 @@ class Steps:
         return None
 
 
-def Gherkin(feature_path: str, scenario_name: str = None):
-    def decorator(func: Callable):
+def Gherkin(feature_path: str, scenario_name: str | None = None):
+    def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             scenario = None
             feature_name = None
 
@@ -103,7 +105,8 @@ def Gherkin(feature_path: str, scenario_name: str = None):
             CheckerContext.clear()
             return func(*args, **kwargs)
 
-        wrapper._gherkin_feature = feature_path
-        wrapper._gherkin_scenario = scenario_name
+        wrapper._gherkin_feature = feature_path  # type: ignore[attr-defined]
+        wrapper._gherkin_scenario = scenario_name  # type: ignore[attr-defined]
         return wrapper
+
     return decorator

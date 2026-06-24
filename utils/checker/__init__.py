@@ -1,11 +1,11 @@
-from utils.checker.ui_checker import UIChecker
 from utils.checker.dto import (
-    TextElementDTO,
     ButtonElementDTO,
-    ImageElementDTO,
-    ElementDTO,
     CountDTO,
+    ElementDTO,
+    ImageElementDTO,
+    TextElementDTO,
 )
+from utils.checker.ui_checker import UIChecker
 
 __all__ = [
     "UIChecker",

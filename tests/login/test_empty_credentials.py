@@ -1,7 +1,7 @@
 from pages.login_page import LoginPage
-from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import TextElementDTO
 from utils.markers import smoke
+from utils.steps_wrapper import Gherkin, Steps
 
 
 @smoke
@@ -14,4 +14,6 @@ def test_empty_credentials(login_page: LoginPage, steps: Steps, checker) -> None
         with steps.when():
             login_page.click_login()
         with steps.then():
-            checker.check_text(login_page.ERROR_CONTAINER, TextElementDTO(value_text="Username is required", contains_text=True))
+            checker.text.check(
+                login_page.ERROR_CONTAINER, TextElementDTO(value_text="Username is required", contains_text=True)
+            )

@@ -1,13 +1,15 @@
+from pathlib import Path
+
+from playwright.sync_api import Page
 import pytest
 import yaml
-from pathlib import Path
-from playwright.sync_api import Page
-from pages.login_page import LoginPage
-from pages.products_page import ProductsPage
+
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
-from utils.steps_wrapper import Steps
+from pages.login_page import LoginPage
+from pages.products_page import ProductsPage
 from utils.checker import UIChecker
+from utils.steps_wrapper import Steps
 
 
 @pytest.fixture(scope="function")
@@ -36,19 +38,19 @@ def steps() -> Steps:
 
 
 @pytest.fixture(scope="function")
-def checker(page: Page) -> UIChecker:
-    return UIChecker(page)
+def checker() -> UIChecker:
+    return UIChecker()
 
 
 @pytest.fixture(scope="session")
 def users_data() -> dict:
     data_path = Path(__file__).parent.parent / "data" / "users.yaml"
-    with open(data_path, "r") as f:
+    with open(data_path) as f:
         return yaml.safe_load(f)
 
 
 @pytest.fixture(scope="session")
 def products_data() -> dict:
     data_path = Path(__file__).parent.parent / "data" / "products.yaml"
-    with open(data_path, "r") as f:
+    with open(data_path) as f:
         return yaml.safe_load(f)

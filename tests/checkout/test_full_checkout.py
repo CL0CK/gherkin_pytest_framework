@@ -1,16 +1,23 @@
-from pages.login_page import LoginPage
-from pages.products_page import ProductsPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
-from utils.steps_wrapper import Steps, Gherkin
+from pages.login_page import LoginPage
+from pages.products_page import ProductsPage
 from utils.checker import ElementDTO, TextElementDTO
-from utils.markers import smoke, critical
+from utils.markers import critical, smoke
+from utils.steps_wrapper import Gherkin, Steps
 
 
 @smoke
 @critical
 @Gherkin("checkout.feature", "User completes full checkout flow")
-def test_full_checkout(login_page: LoginPage, products_page: ProductsPage, cart_page: CartPage, checkout_page: CheckoutPage, steps: Steps, checker) -> None:
+def test_full_checkout(
+    login_page: LoginPage,
+    products_page: ProductsPage,
+    cart_page: CartPage,
+    checkout_page: CheckoutPage,
+    steps: Steps,
+    checker,
+) -> None:
     with steps.given():
         login_page.navigate("/")
         login_page.login("standard_user", "secret_sauce")
@@ -20,24 +27,24 @@ def test_full_checkout(login_page: LoginPage, products_page: ProductsPage, cart_
         with steps.when():
             products_page.click_cart_icon()
         with steps.then():
-            checker.check_presence(cart_page.TITLE, ElementDTO(is_visible=True))
+            checker.common.check_presence(cart_page.TITLE, ElementDTO(is_visible=True))
 
     with steps.step(2):
         with steps.when():
             cart_page.click_checkout()
         with steps.then():
-            checker.check_presence(checkout_page.FIRST_NAME_INPUT, ElementDTO(is_visible=True))
+            checker.common.check_presence(checkout_page.FIRST_NAME_INPUT, ElementDTO(is_visible=True))
 
     with steps.step(3):
         with steps.when():
             checkout_page.fill_information("John", "Doe", "12345")
             checkout_page.click_continue()
         with steps.then():
-            checker.check_presence(checkout_page.ITEM_OVERVIEW, ElementDTO(is_visible=True))
+            checker.common.check_presence(checkout_page.ITEM_OVERVIEW, ElementDTO(is_visible=True))
 
     with steps.step(4):
         with steps.when():
             checkout_page.click_finish()
         with steps.then():
-            checker.check_presence(checkout_page.SUCCESS_MESSAGE, ElementDTO(is_visible=True))
-            checker.check_text(checkout_page.SUCCESS_MESSAGE, TextElementDTO(value_text="Checkout: Complete!"))
+            checker.common.check_presence(checkout_page.SUCCESS_MESSAGE, ElementDTO(is_visible=True))
+            checker.text.check(checkout_page.SUCCESS_MESSAGE, TextElementDTO(value_text="Checkout: Complete!"))

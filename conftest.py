@@ -1,7 +1,9 @@
 import os
+
 import allure
+from playwright.sync_api import BrowserContext, Page, sync_playwright
 import pytest
-from playwright.sync_api import sync_playwright, Page, BrowserContext
+
 from utils.config import Settings
 from utils.logger import get_logger
 
@@ -14,11 +16,11 @@ def pytest_sessionstart(session):
     os.makedirs("allure-results", exist_ok=True)
     with open("allure-results/environment.properties", "w", encoding="utf-8") as f:
         f.write(f"browser={settings.browser}\n")
-        f.write(f"viewport=1280x720\n")
+        f.write("viewport=1280x720\n")
         f.write(f"headless={settings.headless}\n")
         f.write(f"base_url={settings.base_url}\n")
-        f.write(f"python_version=3.13\n")
-        f.write(f"playwright_version=1.60.0\n")
+        f.write("python_version=3.13\n")
+        f.write("playwright_version=1.60.0\n")
 
 
 @pytest.fixture(scope="session")
@@ -90,8 +92,9 @@ def pytest_runtest_makereport(item, call):
         try:
             log_file = f"logs/test_{report.nodeid.replace('/', '_').replace(':', '_')}.log"
             import os
+
             if os.path.exists(log_file):
-                with open(log_file, "r") as f:
+                with open(log_file) as f:
                     allure.attach(
                         f.read(),
                         name="test_log",

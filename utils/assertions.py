@@ -1,6 +1,7 @@
-import time
+from collections.abc import Callable
 import functools
-from typing import Callable
+import time
+
 from utils.logger import get_logger
 
 logger = get_logger()
@@ -16,13 +17,13 @@ def retry_on_failure(retries: int = 3, delay: float = 1.0):
                     return func(*args, **kwargs)
                 except Exception as e:
                     last_exception = e
-                    logger.warning(
-                        f"Attempt {attempt}/{retries} failed for {func.__name__}: {e}"
-                    )
+                    logger.warning(f"Attempt {attempt}/{retries} failed for {func.__name__}: {e}")
                     if attempt < retries:
                         time.sleep(delay)
             raise last_exception
+
         return wrapper
+
     return decorator
 
 
@@ -37,9 +38,7 @@ def assert_element_hidden(page, selector, timeout: int = 5000):
 def assert_text_contains(page, selector, expected_text, timeout: int = 5000):
     element = page.wait_for_selector(selector, timeout=timeout)
     actual_text = element.inner_text()
-    assert expected_text in actual_text, (
-        f"Expected '{expected_text}' in '{actual_text}', but not found"
-    )
+    assert expected_text in actual_text, f"Expected '{expected_text}' in '{actual_text}', but not found"
 
 
 def assert_url_matches(page, expected_path: str, timeout: int = 5000):
@@ -49,6 +48,4 @@ def assert_url_matches(page, expected_path: str, timeout: int = 5000):
 def assert_text_equals(page, selector, expected_text, timeout: int = 5000):
     element = page.wait_for_selector(selector, timeout=timeout)
     actual_text = element.inner_text()
-    assert actual_text == expected_text, (
-        f"Expected '{expected_text}', got '{actual_text}'"
-    )
+    assert actual_text == expected_text, f"Expected '{expected_text}', got '{actual_text}'"

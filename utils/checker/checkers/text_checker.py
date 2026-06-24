@@ -1,49 +1,56 @@
-from playwright.sync_api import Locator
+from utils.allure.step import CheckStep
+from utils.checker.checkers.common_checker import CommonChecker
 from utils.checker.dto import TextElementDTO
+from utils.element import Element
 
 
-class TextChecker:
-    def check(self, locator: Locator, dto: TextElementDTO):
-        self._check_text(locator, dto)
-        self._check_color(locator, dto)
-        self._check_font(locator, dto)
+class TextChecker(CommonChecker):
+    @CheckStep
+    def check_text(
+        self,
+        element: Element,
+        value_text: str,
+        contains_text: bool = False,
+        timeout: int = 5000,
+    ) -> None:
+        locator = element.locator()
+        actual_text = locator.text_content(timeout=timeout)
+        if actual_text is None:
+            actual_text = ""
+        if contains_text:
+            assert value_text in actual_text, f"Expected '{value_text}' to be in '{actual_text}'"
+        else:
+            assert actual_text == value_text, f"Expected '{value_text}', got '{actual_text}'"
 
-    def _check_text(self, locator: Locator, dto: TextElementDTO):
+    @CheckStep
+    def check_font(
+        self,
+        element: Element,
+        expected_font_family: str | None = None,
+        expected_font_size: str | None = None,
+        timeout: int = 5000,
+    ) -> None:
+        locator = element.locator()
+        if expected_font_family is not None:
+            actual_family = locator.evaluate("el => window.getComputedStyle(el).fontFamily")
+            assert (
+                expected_font_family.lower() in actual_family.lower()
+            ), f"Expected font family '{expected_font_family}', got '{actual_family}'"
+        if expected_font_size is not None:
+            actual_size = locator.evaluate("el => window.getComputedStyle(el).fontSize")
+            assert (
+                actual_size == expected_font_size
+            ), f"Expected font size '{expected_font_size}', got '{actual_size}'"
+
+    def check(self, element: Element, dto: TextElementDTO) -> None:
         if dto.value_text is not None:
-            actual_text = locator.text_content(timeout=dto.timeout)
-            if dto.contains_text:
-                assert dto.value_text in actual_text, (
-                    f"Expected '{dto.value_text}' to be in '{actual_text}'"
-                )
-            else:
-                assert actual_text == dto.value_text, (
-                    f"Expected '{dto.value_text}', got '{actual_text}'"
-                )
-
-    def _check_color(self, locator: Locator, dto: TextElementDTO):
+            self.check_text(element, dto.value_text, dto.contains_text, dto.timeout)
         if dto.with_color_check and dto.expected_color is not None:
-            actual_color = locator.evaluate(
-                "el => window.getComputedStyle(el).color"
-            )
-            assert actual_color == dto.expected_color, (
-                f"Expected color '{dto.expected_color}', got '{actual_color}'"
-            )
-
-    def _check_font(self, locator: Locator, dto: TextElementDTO):
+            self.check_color(element, dto.expected_color, dto.timeout)
         if dto.with_font_check:
-            if dto.expected_font_family is not None:
-                actual_family = locator.evaluate(
-                    "el => window.getComputedStyle(el).fontFamily"
-                )
-                assert dto.expected_font_family.lower() in actual_family.lower(), (
-                    f"Expected font family '{dto.expected_font_family}', "
-                    f"got '{actual_family}'"
-                )
-            if dto.expected_font_size is not None:
-                actual_size = locator.evaluate(
-                    "el => window.getComputedStyle(el).fontSize"
-                )
-                assert actual_size == dto.expected_font_size, (
-                    f"Expected font size '{dto.expected_font_size}', "
-                    f"got '{actual_size}'"
-                )
+            self.check_font(
+                element,
+                dto.expected_font_family,
+                dto.expected_font_size,
+                dto.timeout,
+            )

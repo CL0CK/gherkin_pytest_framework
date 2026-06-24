@@ -1,6 +1,7 @@
+import codecs
 import os
 import sys
-import codecs
+
 from loguru import logger
 
 os.makedirs("logs", exist_ok=True)
@@ -9,9 +10,7 @@ logger.remove()
 logger.add(
     codecs.getwriter("utf-8")(sys.stdout.buffer),
     level="INFO",
-    format="<dim>{time:HH:mm:ss.SSS}</dim> | "
-           "<level>{level: <8}</level> | "
-           "<cyan>{message}</cyan>",
+    format="<dim>{time:HH:mm:ss.SSS}</dim> | " "<level>{level: <8}</level> | " "<cyan>{message}</cyan>",
 )
 logger.add(
     "logs/test_{time:YYYY-MM-DD}.log",
@@ -19,9 +18,7 @@ logger.add(
     retention="7 days",
     level="DEBUG",
     encoding="utf-8",
-    format="{time:YYYY-MM-DD HH:mm:ss.SSSSSS} | "
-           "{level: <8} | "
-           "{message}",
+    format="{time:YYYY-MM-DD HH:mm:ss.SSSSSS} | " "{level: <8} | " "{message}",
 )
 
 

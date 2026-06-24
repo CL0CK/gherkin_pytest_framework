@@ -1,8 +1,8 @@
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
-from utils.steps_wrapper import Steps, Gherkin
 from utils.checker import TextElementDTO
 from utils.markers import regression
+from utils.steps_wrapper import Gherkin, Steps
 
 
 @regression
@@ -16,10 +16,10 @@ def test_add_to_cart(login_page: LoginPage, products_page: ProductsPage, steps: 
         with steps.when():
             products_page.add_product_to_cart_by_name("Sauce Labs Backpack")
         with steps.then():
-            checker.check_text(products_page.CART_BADGE, TextElementDTO(value_text="1"))
+            checker.text.check(products_page.CART_BADGE, TextElementDTO(value_text="1"))
 
     with steps.step(2):
         with steps.when():
             products_page.add_product_to_cart_by_name("Sauce Labs Bike Light")
         with steps.then():
-            checker.check_text(products_page.CART_BADGE, TextElementDTO(value_text="2"))
+            checker.text.check(products_page.CART_BADGE, TextElementDTO(value_text="2"))
