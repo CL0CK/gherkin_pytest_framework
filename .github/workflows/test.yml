@@ -5,6 +5,22 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      test_filter:
+        description: "pytest filter (e.g. -m smoke, tests/login/, test_view_products)"
+        required: false
+        default: ""
+      browser:
+        description: "browser to test"
+        required: false
+        default: "chromium"
+        type: choice
+        options:
+          - chromium
+          - firefox
+          - webkit
+          - all
 
 jobs:
   lint:
@@ -40,7 +56,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: ${{ fromJSON(github.event_name == 'workflow_dispatch' && github.event.inputs.browser != 'all' && format('["{0}"]', github.event.inputs.browser) || '["chromium", "firefox", "webkit"]') }}
 
     steps:
       - name: Checkout repository
@@ -89,7 +105,7 @@ jobs:
           SLOW_MO: 0
           SCREENSHOT_ON_FAILURE: true
           VIDEO_ON_FAILURE: true
-        run: poetry run pytest tests/ -v --tb=short
+        run: poetry run pytest tests/ -v --tb=short ${{ github.event.inputs.test_filter }}
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
