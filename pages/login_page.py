@@ -1,6 +1,7 @@
 from playwright.sync_api import Page
 
 from pages.base_page import BasePage
+from utils.config import Settings
 from utils.element import Element
 
 
@@ -10,8 +11,8 @@ class LoginPage(BasePage):
     LOGIN_BUTTON = Element("#login-button")
     ERROR_CONTAINER = Element(".login_wrapper-inner")
 
-    def __init__(self, page: Page):
-        super().__init__(page)
+    def __init__(self, page: Page, config: Settings | None = None):
+        super().__init__(page, config)
 
     def fill_username(self, username: str):
         self.page.fill(self.USERNAME_INPUT, username)

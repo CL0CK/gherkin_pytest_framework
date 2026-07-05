@@ -1,6 +1,7 @@
 from playwright.sync_api import Page
 
 from pages.base_page import BasePage
+from utils.config import Settings
 from utils.element import Element
 
 
@@ -14,8 +15,8 @@ class ProductsPage(BasePage):
     MENU_BUTTON = Element("#react-burger-menu-btn")
     LOGOUT_BUTTON = Element("#logout_sidebar_link")
 
-    def __init__(self, page: Page):
-        super().__init__(page)
+    def __init__(self, page: Page, config: Settings | None = None):
+        super().__init__(page, config)
 
     def add_product_to_cart_by_name(self, product_name: str):
         product_row = self.page.locator(".inventory_item").filter(has_text=product_name)

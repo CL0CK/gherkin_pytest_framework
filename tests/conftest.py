@@ -9,27 +9,28 @@ from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
 from utils.checker import UIChecker
+from utils.config import Settings
 from utils.steps_wrapper import Steps
 
 
 @pytest.fixture(scope="function")
-def login_page(page: Page) -> LoginPage:
-    return LoginPage(page)
+def login_page(page: Page, config: Settings) -> LoginPage:
+    return LoginPage(page, config)
 
 
 @pytest.fixture(scope="function")
-def products_page(page: Page) -> ProductsPage:
-    return ProductsPage(page)
+def products_page(page: Page, config: Settings) -> ProductsPage:
+    return ProductsPage(page, config)
 
 
 @pytest.fixture(scope="function")
-def cart_page(page: Page) -> CartPage:
-    return CartPage(page)
+def cart_page(page: Page, config: Settings) -> CartPage:
+    return CartPage(page, config)
 
 
 @pytest.fixture(scope="function")
-def checkout_page(page: Page) -> CheckoutPage:
-    return CheckoutPage(page)
+def checkout_page(page: Page, config: Settings) -> CheckoutPage:
+    return CheckoutPage(page, config)
 
 
 @pytest.fixture(scope="function")

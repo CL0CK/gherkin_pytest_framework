@@ -1,6 +1,7 @@
 from playwright.sync_api import Page
 
 from pages.base_page import BasePage
+from utils.config import Settings
 from utils.element import Element
 
 
@@ -18,8 +19,8 @@ class CheckoutPage(BasePage):
     SUCCESS_ICON = Element(".hero-graphic")
     BACK_TO_HOME_BUTTON = Element("#back-to-products")
 
-    def __init__(self, page: Page):
-        super().__init__(page)
+    def __init__(self, page: Page, config: Settings | None = None):
+        super().__init__(page, config)
 
     def fill_information(self, first_name: str, last_name: str, zip_code: str):
         self.page.fill(self.FIRST_NAME_INPUT, first_name)

@@ -19,7 +19,6 @@ class BasePage:
     def navigate(self, path: str = "/"):
         url = f"{self.config.base_url}{path}"
         self.page.goto(url)
-        self.page.wait_for_load_state("networkidle")
 
     def get_url(self) -> str:
         return self.page.url

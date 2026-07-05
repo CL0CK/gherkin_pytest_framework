@@ -1,6 +1,7 @@
 from playwright.sync_api import Page
 
 from pages.base_page import BasePage
+from utils.config import Settings
 from utils.element import Element
 
 
@@ -11,8 +12,8 @@ class CartPage(BasePage):
     CONTINUE_SHOPPING_BUTTON = Element("#continue-shopping")
     TITLE = Element(".title")
 
-    def __init__(self, page: Page):
-        super().__init__(page)
+    def __init__(self, page: Page, config: Settings | None = None):
+        super().__init__(page, config)
 
     def click_checkout(self):
         self.page.click(self.CHECKOUT_BUTTON)
