@@ -16,6 +16,5 @@ def test_view_products(
         login_page.navigate("/")
         login_page.login(user["username"], user["password"])
 
-    with steps.step():
-        with steps.then("User sees all products listed"):
-            checker.count.check(products_page.PRODUCT_CONTAINER, CountDTO(expected=6))
+    with steps.step(), steps.then("User sees all products listed"):
+        checker.count.check(products_page.PRODUCT_CONTAINER, CountDTO(expected=6))
