@@ -87,6 +87,12 @@ jobs:
     needs: test
     if: always()
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Download all results
         uses: actions/download-artifact@v4
@@ -109,34 +115,17 @@ jobs:
           allure_results: allure-results-merged/all
           allure_history: allure-report
 
-      - name: Upload Allure Report
+      - name: Upload Allure Report artifact
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report/
           retention-days: 14
 
-  deploy-allure:
-    needs: allure-report
-    if: always()
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Download Allure Report
-        uses: actions/download-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report/
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload to Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./allure-report
