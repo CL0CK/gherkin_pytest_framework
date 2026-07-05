@@ -38,8 +38,8 @@ def steps() -> Steps:
 
 
 @pytest.fixture(scope="function")
-def checker() -> UIChecker:
-    return UIChecker()
+def checker(page: Page) -> UIChecker:
+    return UIChecker(page)
 
 
 @pytest.fixture(scope="session")

@@ -1,10 +1,8 @@
-from playwright.sync_api import Locator, Page
+from playwright.sync_api import Page
 
 from utils.config import Settings
 from utils.element import Element
-from utils.logger import PageLogger, get_logger
-
-logger = get_logger()
+from utils.logger import PageLogger
 
 
 class BasePage:
@@ -17,10 +15,6 @@ class BasePage:
     def __init__(self, page: Page, config: Settings | None = None):
         self.page = PageLogger(page)
         self.config = config or Settings()
-        for attr_name in dir(self):
-            attr_value = getattr(self, attr_name)
-            if isinstance(attr_value, Element):
-                attr_value.page = page
 
     def navigate(self, path: str = "/"):
         url = f"{self.config.base_url}{path}"
@@ -38,9 +32,3 @@ class BasePage:
 
     def wait_for_selector(self, selector: str, state: str = "visible", timeout: int = 5000):
         return self.page.wait_for_selector(selector, state=state, timeout=timeout)
-
-    def get_by_text(self, text: str) -> Locator:
-        return self.page.locator(f"text={text}")
-
-    def get_by_role(self, role: str, **kwargs) -> Locator:
-        return self.page.locator(f"[role={role}]")

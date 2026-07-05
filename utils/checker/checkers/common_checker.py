@@ -1,6 +1,6 @@
 import time
 
-from playwright.sync_api import Locator
+from playwright.sync_api import Locator, Page
 
 from utils.allure.step import CheckStep
 from utils.checker.dto import ElementDTO
@@ -8,9 +8,15 @@ from utils.element import Element
 
 
 class CommonChecker:
+    def __init__(self, page: Page) -> None:
+        self._page = page
+
+    def _locator(self, element: Element) -> Locator:
+        return self._page.locator(element.selector)
+
     @CheckStep
     def check_presence(self, element: Element, dto: ElementDTO) -> None:
-        locator = element.locator()
+        locator = self._locator(element)
         if dto.is_visible and not dto.is_hidden:
             locator.first.wait_for(state="visible", timeout=dto.timeout)
         if dto.is_hidden and not dto.is_visible:
@@ -37,7 +43,7 @@ class CommonChecker:
         contains: bool = False,
         timeout: int = 5000,
     ) -> None:
-        locator = element.locator()
+        locator = self._locator(element)
         if attribute == "text":
             actual = locator.text_content(timeout=timeout) or ""
         else:
@@ -54,6 +60,6 @@ class CommonChecker:
         expected_color: str,
         timeout: int = 5000,
     ) -> None:
-        locator = element.locator()
+        locator = self._locator(element)
         actual_color = locator.evaluate("el => window.getComputedStyle(el).color")
         assert actual_color == expected_color, f"Expected color '{expected_color}', got '{actual_color}'"

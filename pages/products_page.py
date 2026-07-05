@@ -18,12 +18,12 @@ class ProductsPage(BasePage):
         super().__init__(page)
 
     def add_product_to_cart_by_name(self, product_name: str):
-        product_row = self.page.locator(f".inventory_item:has-text('{product_name}')")
+        product_row = self.page.locator(".inventory_item").filter(has_text=product_name)
         add_btn = product_row.locator(self.ADD_TO_CART_BUTTON.selector)
         add_btn.click()
 
     def remove_product_from_cart_by_name(self, product_name: str):
-        product_row = self.page.locator(f".inventory_item:has-text('{product_name}')")
+        product_row = self.page.locator(".inventory_item").filter(has_text=product_name)
         remove_btn = product_row.locator(self.REMOVE_BUTTON.selector)
         remove_btn.click()
 

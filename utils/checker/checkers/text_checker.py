@@ -13,7 +13,7 @@ class TextChecker(CommonChecker):
         contains_text: bool = False,
         timeout: int = 5000,
     ) -> None:
-        locator = element.locator()
+        locator = self._locator(element)
         actual_text = locator.text_content(timeout=timeout)
         if actual_text is None:
             actual_text = ""
@@ -30,7 +30,7 @@ class TextChecker(CommonChecker):
         expected_font_size: str | None = None,
         timeout: int = 5000,
     ) -> None:
-        locator = element.locator()
+        locator = self._locator(element)
         if expected_font_family is not None:
             actual_family = locator.evaluate("el => window.getComputedStyle(el).fontFamily")
             assert (
