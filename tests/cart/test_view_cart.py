@@ -24,13 +24,14 @@ def test_view_cart(
     with steps.given("User is logged in with valid credentials and has added a product to the cart"):
         login_page.navigate("/")
         login_page.login(user["username"], user["password"])
-        products_page.add_product_to_cart_by_name(product_name)
+        products_page.product_by_name(product_name).add_to_cart()
 
     with steps.step():
         with steps.when("User clicks on the cart icon"):
             products_page.click_cart_icon()
         with steps.then("User sees the added product in the cart"):
-            checker.text.check(cart_page.CART_ITEM_NAME, TextElementDTO(value_text=product_name, contains_text=True))
+            dto = TextElementDTO(value_text=product_name, contains_text=True)
+            checker.text.check(cart_page.cart_line_item().ITEM_NAME, dto)
 
     with steps.step():
         with steps.when("User clicks Continue Shopping"):

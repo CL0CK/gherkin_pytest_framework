@@ -25,7 +25,7 @@ def test_proceed_to_checkout(
     with steps.given("User is logged in with valid credentials and has added a product to the cart"):
         login_page.navigate("/")
         login_page.login(user["username"], user["password"])
-        products_page.add_product_to_cart_by_name(product_name)
+        products_page.product_by_name(product_name).add_to_cart()
 
     with steps.step():
         with steps.when("User clicks on the cart icon"):

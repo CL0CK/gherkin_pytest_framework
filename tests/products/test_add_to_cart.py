@@ -25,12 +25,12 @@ def test_add_to_cart(
 
     with steps.step():
         with steps.when(f'User adds "{first_product}" to the cart'):
-            products_page.add_product_to_cart_by_name(first_product)
+            products_page.product_by_name(first_product).add_to_cart()
         with steps.then("Cart badge shows a count of 1"):
             checker.text.check(products_page.CART_BADGE, TextElementDTO(value_text="1"))
 
     with steps.step():
         with steps.when(f'User adds "{second_product}" to the cart'):
-            products_page.add_product_to_cart_by_name(second_product)
+            products_page.product_by_name(second_product).add_to_cart()
         with steps.then("Cart badge shows a count of 2"):
             checker.text.check(products_page.CART_BADGE, TextElementDTO(value_text="2"))

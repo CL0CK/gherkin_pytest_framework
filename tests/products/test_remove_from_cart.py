@@ -21,10 +21,10 @@ def test_remove_from_cart(
     with steps.given("User is logged in with valid credentials and has added a product to the cart"):
         login_page.navigate("/")
         login_page.login(user["username"], user["password"])
-        products_page.add_product_to_cart_by_name(product_name)
+        products_page.product_by_name(product_name).add_to_cart()
 
     with steps.step():
         with steps.when(f'User removes "{product_name}" from the cart'):
-            products_page.remove_product_from_cart_by_name(product_name)
+            products_page.product_by_name(product_name).remove_from_cart()
         with steps.then("Cart badge shows a count of zero"):
             checker.common.check_presence(products_page.CART_BADGE, ElementDTO(is_visible=True, is_hidden=True))
