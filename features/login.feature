@@ -1,27 +1,22 @@
 Feature: Login
 
   @smoke @critical
-  Scenario: Successful login with valid credentials
+  Scenario Outline: Login with various credentials
     Given User is on the SauceDemo login page
-    When Step 1: User enters valid credentials and clicks login
-    Then Step 1: User is redirected to the products page
-    When Step 2: User clicks on the cart icon
-    Then Step 2: User is redirected to the cart page
+    When User enters "<username>" and "<password>" and clicks login
+    Then User sees "<expected_result>"
+
+    Examples:
+      | username      | password       | expected_result   |
+      | standard_user | secret_sauce   | products page     |
+      | locked_out    | secret_sauce   | error message     |
+      |               |                | validation error  |
+      | invalid_user  | wrong_pass     | error message     |
 
   @smoke @critical
-  Scenario: Login with locked out user
+  Scenario: Successful login and cart navigation
     Given User is on the SauceDemo login page
-    When Step 1: User enters locked out user credentials and clicks login
-    Then Step 1: User sees an error message
-
-  @smoke
-  Scenario: Login with empty credentials
-    Given User is on the SauceDemo login page
-    When Step 1: User clicks login without entering credentials
-    Then Step 1: User sees an error message
-
-  @smoke
-  Scenario: Login with invalid credentials
-    Given User is on the SauceDemo login page
-    When Step 1: User enters invalid credentials and clicks login
-    Then Step 1: User sees an error message
+    When User enters valid credentials and clicks login
+    Then User is redirected to the products page
+    When User clicks the cart icon
+    Then User is redirected to the cart page

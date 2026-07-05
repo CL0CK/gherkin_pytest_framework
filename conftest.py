@@ -44,20 +44,22 @@ def browser(playwright_instance):
 
 @pytest.fixture(scope="function")
 def context(browser) -> BrowserContext:
+    video_dir = "reports/videos" if settings.video_on_failure else None
     ctx = browser.new_context(
         viewport={"width": 1280, "height": 720},
         ignore_https_errors=True,
+        record_video_dir=video_dir,
     )
-    if settings.video_on_failure:
-        ctx.tracing.start(screenshots=True, snapshots=True)
     yield ctx
     ctx.close()
 
 
 @pytest.fixture(scope="function")
-def page(context: BrowserContext) -> Page:
+def page(request: pytest.FixtureRequest, context: BrowserContext) -> Page:
     pg = context.new_page()
     yield pg
+    if settings.video_on_failure and pg.video is not None:
+        request.node.stash["video_path"] = pg.video.path()
     pg.close()
 
 
@@ -72,11 +74,7 @@ def pytest_runtest_makereport(item, call):
     report = outcome.get_result()
 
     if report.when == "call" and report.failed:
-        page_obj = None
-        for fixture_name in ("page",):
-            if fixture_name in item.fixturenames:
-                page_obj = item.funcargs.get(fixture_name)
-                break
+        page_obj = item.funcargs.get("page")
 
         if page_obj and settings.screenshot_on_failure:
             try:
@@ -91,8 +89,6 @@ def pytest_runtest_makereport(item, call):
 
         try:
             log_file = f"logs/test_{report.nodeid.replace('/', '_').replace(':', '_')}.log"
-            import os
-
             if os.path.exists(log_file):
                 with open(log_file) as f:
                     allure.attach(
@@ -102,6 +98,20 @@ def pytest_runtest_makereport(item, call):
                     )
         except Exception as e:
             logger.error(f"Failed to attach log: {e}")
+
+    if report.when == "teardown" and settings.video_on_failure:
+        test_failed = hasattr(item, "rep_call") and item.rep_call and item.rep_call.failed
+        if test_failed:
+            video_path = item.stash.get("video_path", None)
+            if video_path and os.path.exists(video_path):
+                try:
+                    allure.attach.file(
+                        video_path,
+                        name=f"video_{report.nodeid}",
+                        attachment_type=allure.attachment_type.WEBM,
+                    )
+                except Exception as e:
+                    logger.error(f"Failed to attach video: {e}")
 
 
 @pytest.hookimpl(tryfirst=True)

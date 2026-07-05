@@ -1,13 +1,28 @@
+"""
+.feature file reader with full step-level parsing.
+
+The Gherkin decorator in utils/steps_wrapper.py uses this to build an
+ordered contract of (step_type, text) pairs for a scenario. Steps.given/
+when/then must be called with EXACTLY this text, in EXACTLY this order,
+or the test fails immediately with a clear mismatch error. There is no
+fuzzy matching and no silent fallback: either the code fully and exactly
+describes the scenario, or the test errors out.
+"""
+
 from dataclasses import dataclass, field
 from pathlib import Path
-import re
-from typing import Literal, cast
+from typing import Literal
+
+FEATURE_DIR = Path(__file__).parent.parent / "features"
+
+StepType = Literal["given", "when", "then"]
+
+_KEYWORDS = ("Given ", "When ", "Then ", "And ", "But ")
 
 
 @dataclass
 class GherkinStep:
-    step_type: Literal["given", "when", "then", "and"]
-    step_number: int | None
+    step_type: StepType
     text: str
 
 
@@ -16,6 +31,7 @@ class GherkinScenario:
     name: str
     tags: list[str] = field(default_factory=list)
     steps: list[GherkinStep] = field(default_factory=list)
+    examples: list[dict[str, str]] | None = None
 
 
 @dataclass
@@ -24,84 +40,73 @@ class GherkinFeature:
     scenarios: list[GherkinScenario] = field(default_factory=list)
 
 
-FEATURE_DIR = Path(__file__).parent.parent / "features"
-
-
-def parse_feature_file(filepath: str) -> GherkinFeature:
-    path = FEATURE_DIR / filepath
+def parse_feature_file(filename: str) -> GherkinFeature:
+    path = FEATURE_DIR / filename
     if not path.exists():
         raise FileNotFoundError(f"Feature file not found: {path}")
 
-    content = path.read_text(encoding="utf-8")
-    return _parse(content)
-
-
-def _parse(content: str) -> GherkinFeature:
-    lines = content.splitlines()
     feature = GherkinFeature(name="")
-    current_scenario: GherkinScenario | None = None
-    step_counter: int = 0
+    current: GherkinScenario | None = None
+    pending_tags: list[str] = []
+    last_type: StepType | None = None
+    parsing_examples = False
+    example_headers: list[str] | None = None
 
-    for line in lines:
-        stripped = line.strip()
-
-        if not stripped or stripped.startswith("#"):
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
             continue
 
-        if stripped.startswith("Feature:"):
-            feature.name = stripped[len("Feature:") :].strip()
-            continue
-
-        if stripped.startswith("@"):
-            if current_scenario:
-                current_scenario.tags.append(stripped)
-            continue
-
-        if stripped.startswith("Scenario:"):
-            current_scenario = GherkinScenario(name=stripped[len("Scenario:") :].strip())
-            step_counter = 0
-            feature.scenarios.append(current_scenario)
-            continue
-
-        if current_scenario is None:
-            continue
-
-        step = _parse_step(stripped, step_counter)
-        if step:
-            current_scenario.steps.append(step)
-            if step.step_number is not None:
-                step_counter = step.step_number
+        if line.startswith("Feature:"):
+            feature.name = line.removeprefix("Feature:").strip()
+        elif line.startswith("@"):
+            pending_tags.extend(line.split())
+        elif line.startswith("Scenario Outline:") or line.startswith("Scenario:"):
+            prefix = "Scenario Outline:" if line.startswith("Scenario Outline:") else "Scenario:"
+            current = GherkinScenario(name=line.removeprefix(prefix).strip(), tags=pending_tags)
+            feature.scenarios.append(current)
+            pending_tags = []
+            last_type = None
+            parsing_examples = False
+            example_headers = None
+        elif current is not None and line.startswith("Examples:"):
+            parsing_examples = True
+            example_headers = None
+        elif current is not None and parsing_examples and line.startswith("|"):
+            cells = [cell.strip() for cell in line.strip("|").split("|")]
+            if example_headers is None:
+                example_headers = cells
+            else:
+                row = dict(zip(example_headers, cells, strict=True))
+                if current.examples is None:
+                    current.examples = []
+                current.examples.append(row)
+        elif current is not None:
+            parsing_examples = False
+            example_headers = None
+            for keyword in _KEYWORDS:
+                if line.startswith(keyword):
+                    text = line[len(keyword) :].strip()
+                    if keyword in ("And ", "But "):
+                        if last_type is None:
+                            raise ValueError(
+                                f'"{keyword.strip()}" step used before any Given/When/Then in scenario '
+                                f'"{current.name}" (features/{filename}).'
+                            )
+                        step_type: StepType = last_type
+                    else:
+                        step_type = keyword.strip().lower()  # type: ignore[assignment]
+                    current.steps.append(GherkinStep(step_type=step_type, text=text))
+                    last_type = step_type
+                    break
 
     return feature
 
 
-def _parse_step(line: str, last_number: int) -> GherkinStep | None:
-    for keyword in ("Given ", "When ", "Then ", "And "):
-        if line.startswith(keyword):
-            step_type = cast(Literal["given", "when", "then", "and"], keyword.strip().lower())
-            rest = line[len(keyword) :]
-
-            step_num_match = re.match(r"Step\s+(\d+):\s*(.*)", rest)
-            if step_num_match:
-                step_number = int(step_num_match.group(1))
-                text = step_num_match.group(2)
-            else:
-                step_number = last_number + 1
-                text = rest
-
-            return GherkinStep(
-                step_type=step_type,
-                step_number=step_number,
-                text=text,
-            )
-
-    return None
-
-
-def get_scenario_by_name(feature_path: str, scenario_name: str) -> GherkinScenario:
-    feature = parse_feature_file(feature_path)
+def get_scenario_by_name(filename: str, scenario_name: str) -> GherkinScenario:
+    feature = parse_feature_file(filename)
     for scenario in feature.scenarios:
-        if scenario.name.lower() == scenario_name.lower():
+        if scenario.name.strip() == scenario_name.strip():
             return scenario
     available = [s.name for s in feature.scenarios]
-    raise ValueError(f"Scenario '{scenario_name}' not found in '{feature_path}'. " f"Available: {available}")
+    raise ValueError(f'Scenario "{scenario_name}" not found in features/{filename}. Available scenarios: {available}')

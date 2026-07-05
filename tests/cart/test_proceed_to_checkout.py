@@ -2,7 +2,7 @@ from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
-from utils.checker import ElementDTO
+from utils.checker import ElementDTO, UIChecker
 from utils.markers import regression
 from utils.steps_wrapper import Gherkin, Steps
 
@@ -15,21 +15,26 @@ def test_proceed_to_checkout(
     cart_page: CartPage,
     checkout_page: CheckoutPage,
     steps: Steps,
-    checker,
+    checker: UIChecker,
+    users_data: dict,
+    products_data: dict,
 ) -> None:
-    with steps.given():
-        login_page.navigate("/")
-        login_page.login("standard_user", "secret_sauce")
-        products_page.add_product_to_cart_by_name("Sauce Labs Backpack")
+    user = users_data["valid_user"]
+    product_name = products_data["products"][0]["name"]
 
-    with steps.step(1):
-        with steps.when():
+    with steps.given("User is logged in with valid credentials and has added a product to the cart"):
+        login_page.navigate("/")
+        login_page.login(user["username"], user["password"])
+        products_page.add_product_to_cart_by_name(product_name)
+
+    with steps.step():
+        with steps.when("User clicks on the cart icon"):
             products_page.click_cart_icon()
-        with steps.then():
+        with steps.then("User sees the cart page"):
             checker.common.check_presence(cart_page.TITLE, ElementDTO(is_visible=True))
 
-    with steps.step(2):
-        with steps.when():
+    with steps.step():
+        with steps.when("User clicks Checkout"):
             cart_page.click_checkout()
-        with steps.then():
+        with steps.then("User sees the checkout information page"):
             checker.common.check_presence(checkout_page.FIRST_NAME_INPUT, ElementDTO(is_visible=True))

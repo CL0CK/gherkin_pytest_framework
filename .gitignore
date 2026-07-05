@@ -2,6 +2,7 @@
 logs/
 reports/
 allure-results/
+allure-report/
 .allure/
 __pycache__/
 *.py[cod]

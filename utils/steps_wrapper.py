@@ -1,112 +1,159 @@
+"""
+Given/When/Then step grouping for Allure reporting, enforced against a
+.feature file.
+
+Design intent: every logical step of a test is a single code block where
+the ACTION and its EXPECTATION live next to each other, with a
+human-readable description supplied inline. @Gherkin(...) then verifies,
+at runtime, that the exact sequence of given()/when()/then() calls made
+by the test matches — word for word, in order, completely — the
+Given/When/Then/And lines of the named scenario in the .feature file.
+
+Three ways this can fail, all loud, all immediate:
+  1. The scenario name doesn't exist in the .feature file (checked at
+     import/collection time).
+  2. A steps.given/when/then() call's text or type doesn't match the
+     next expected line in the .feature file (checked as it happens).
+  3. The test finishes but the .feature file had more lines left that
+     were never executed (checked right after the test body returns).
+
+Scenario Outline support:
+  If the bound scenario has an Examples table, @Gherkin automatically
+  applies pytest.mark.parametrize so each row becomes a separate test
+  execution. Column names become pytest parameter names.
+"""
+
 from collections.abc import Callable
 from contextlib import contextmanager
-from functools import wraps
-from typing import Any
+import functools
+import inspect
+from typing import TypeVar, cast
 
 import allure
+import pytest
 
-from utils.checker.context import CheckerContext
-from utils.gherkin_parser import (
-    GherkinScenario,
-    GherkinStep,
-    get_scenario_by_name,
-    parse_feature_file,
-)
+from utils.gherkin_parser import GherkinStep, StepType, parse_feature_file
 from utils.logger import get_logger
 
 logger = get_logger()
 
-
-class Steps:
-    def __init__(self, scenario: GherkinScenario | None = None):
-        self._scenario = scenario
-        self._current_step: GherkinStep | None = None
-        self._step_index: int = 0
-        self._given_index: int = 0
-
-    @contextmanager
-    def given(self):
-        step = self._get_given_step()
-        text = step.text if step else "Setup"
-        CheckerContext.set(phase="given", text=text)
-        logger.info(f"▶ GIVEN: - {text}")
-        with allure.step(f"GIVEN: {text}"):
-            self._current_step = step
-            self._given_index += 1
-            yield self
-
-    @contextmanager
-    def step(self, number: int):
-        with allure.step(f"Step {number}"):
-            self._step_index = number
-            yield self
-
-    @contextmanager
-    def when(self):
-        step = self._find_step_for_number("when", self._step_index)
-        text = step.text if step else "Action"
-        CheckerContext.set(step_number=self._step_index, phase="when", text=text)
-        logger.info(f"▶ WHEN #{self._step_index}: - {text}")
-        with allure.step(f"WHEN: {text}"):
-            self._current_step = step
-            yield self
-
-    @contextmanager
-    def then(self):
-        step = self._find_step_for_number("then", self._step_index)
-        text = step.text if step else "Assertion"
-        CheckerContext.set(step_number=self._step_index, phase="then", text=text)
-        logger.info(f"▶ THEN #{self._step_index}: - {text}")
-        with allure.step(f"THEN: {text}"):
-            self._current_step = step
-            yield self
-
-    def _get_given_step(self) -> GherkinStep | None:
-        if self._scenario:
-            given_steps = [s for s in self._scenario.steps if s.step_type == "given"]
-            if self._given_index < len(given_steps):
-                return given_steps[self._given_index]
-        return None
-
-    def _find_step_for_number(self, step_type: str, number: int) -> GherkinStep | None:
-        if self._scenario:
-            for s in self._scenario.steps:
-                if s.step_type == step_type and s.step_number == number:
-                    return s
-        return None
+F = TypeVar("F", bound=Callable)
 
 
-def Gherkin(feature_path: str, scenario_name: str | None = None):
-    def decorator(func: Callable) -> Callable:
-        @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
-            scenario = None
-            feature_name = None
+class ScenarioStepMismatchError(AssertionError):
+    """Raised when a test's given/when/then calls don't exactly match its bound .feature scenario."""
 
-            try:
-                feature = parse_feature_file(feature_path)
-                feature_name = feature.name
-            except Exception as e:
-                logger.error(f"Failed to parse feature {feature_path}: {e}")
 
-            try:
-                if scenario_name:
-                    scenario = get_scenario_by_name(feature_path, scenario_name)
-            except Exception as e:
-                logger.error(f"Failed to find scenario: {e}")
+def Gherkin(feature_file: str, scenario_name: str) -> Callable[[F], F]:
+    feature = parse_feature_file(feature_file)
+    scenario = next((s for s in feature.scenarios if s.name.strip() == scenario_name.strip()), None)
 
-            steps_instance = kwargs.get("steps")
-            if steps_instance and scenario:
-                steps_instance._scenario = scenario
+    if scenario is None:
+        available = [s.name for s in feature.scenarios]
+        raise ValueError(
+            f'Gherkin(): scenario "{scenario_name}" not found in features/{feature_file}. '
+            f"Available scenarios: {available}. Fix the decorator argument or the .feature file — "
+            f"this test cannot be collected until they agree."
+        )
+    if not scenario.steps:
+        raise ValueError(
+            f'Gherkin(): scenario "{scenario_name}" in features/{feature_file} has no Given/When/Then steps.'
+        )
 
-            allure.label("feature", feature_name or "Unknown")
-            allure.label("scenario", scenario.name if scenario else "Unknown")
+    def decorator(func: F) -> F:
+        if "steps" not in inspect.signature(func).parameters:
+            raise TypeError(
+                f'@Gherkin requires a "steps: Steps" fixture parameter on {func.__name__}, so the scenario '
+                f"can be verified step-by-step against features/{feature_file}. None was found."
+            )
 
-            CheckerContext.clear()
-            return func(*args, **kwargs)
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            steps_instance: Steps = kwargs["steps"]
+            steps_instance._bind_scenario(f"{feature_file}::{scenario_name}", scenario.steps)
+            result = func(*args, **kwargs)
+            steps_instance._verify_complete()
+            return result
 
-        wrapper._gherkin_feature = feature_path  # type: ignore[attr-defined]
-        wrapper._gherkin_scenario = scenario_name  # type: ignore[attr-defined]
-        return wrapper
+        decorated = allure.story(scenario_name)(allure.feature(feature.name)(wrapper))
+
+        if scenario.examples is not None:
+            param_names = list(scenario.examples[0].keys())
+            param_values = [tuple(row.values()) for row in scenario.examples]
+            decorated = pytest.mark.parametrize(",".join(param_names), param_values)(decorated)
+
+        return cast(F, decorated)
 
     return decorator
+
+
+class Steps:
+    def __init__(self) -> None:
+        self._expected: list[GherkinStep] = []
+        self._pointer: int = 0
+        self._bound_to: str | None = None
+        self._step_counter: int = 0
+
+    def _bind_scenario(self, bound_to: str, expected_steps: list[GherkinStep]) -> None:
+        self._expected = expected_steps
+        self._pointer = 0
+        self._bound_to = bound_to
+
+    def _verify_complete(self) -> None:
+        if self._pointer < len(self._expected):
+            remaining = [f"{s.step_type.upper()} {s.text}" for s in self._expected[self._pointer :]]
+            raise ScenarioStepMismatchError(
+                f'Scenario "{self._bound_to}" is not fully covered by test code: {len(remaining)} step(s) '
+                f"declared in the .feature file were never executed: {remaining}"
+            )
+
+    def _consume(self, step_type: StepType, description: str) -> None:
+        if self._bound_to is None:
+            return  # not bound to a scenario via @Gherkin — nothing to verify against
+
+        if self._pointer >= len(self._expected):
+            raise ScenarioStepMismatchError(
+                f'Scenario "{self._bound_to}": extra {step_type.upper()} step "{description}" has no '
+                f"corresponding line left in the .feature file."
+            )
+
+        expected = self._expected[self._pointer]
+        if expected.step_type != step_type or expected.text != description:
+            raise ScenarioStepMismatchError(
+                f'Scenario "{self._bound_to}": step #{self._pointer + 1} does not match the .feature file.\n'
+                f"  Expected: {expected.step_type.upper()} {expected.text!r}\n"
+                f"  Got:      {step_type.upper()} {description!r}"
+            )
+        self._pointer += 1
+
+    @contextmanager
+    def given(self, description: str = "Setup"):
+        self._consume("given", description)
+        logger.info(f"▶ GIVEN: {description}")
+        with allure.step(f"GIVEN: {description}"):
+            yield self
+
+    @contextmanager
+    def step(self, description: str = ""):
+        """Groups a When/Then pair (or related actions) under one auto-numbered Allure step.
+        Not verified against the .feature file — it's a Python-only visual container, not a
+        Gherkin line. The number comes from a counter on this Steps instance (one per test), so
+        there is nothing for a human to type or keep in sync by hand."""
+        self._step_counter += 1
+        title = f"Step {self._step_counter}" if not description else f"Step {self._step_counter}: {description}"
+        with allure.step(title):
+            yield self
+
+    @contextmanager
+    def when(self, description: str):
+        self._consume("when", description)
+        logger.info(f"▶ WHEN: {description}")
+        with allure.step(f"WHEN: {description}"):
+            yield self
+
+    @contextmanager
+    def then(self, description: str):
+        self._consume("then", description)
+        logger.info(f"▶ THEN: {description}")
+        with allure.step(f"THEN: {description}"):
+            yield self
