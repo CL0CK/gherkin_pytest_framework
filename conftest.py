@@ -117,7 +117,3 @@ def pytest_runtest_makereport(item, call):
 @pytest.hookimpl(tryfirst=True)
 def pytest_runtest_setup(item):
     logger.info(f"▶ Environment: browser={settings.browser} | viewport=1280x720 | headless={settings.headless}")
-    allure.label("browser", settings.browser)
-    allure.label("viewport", "1280x720")
-    allure.label("headless", str(settings.headless))
-    allure.label("base_url", settings.base_url)
