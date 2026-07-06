@@ -26,4 +26,12 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Check unimplemented scenarios
-        run: poetry run python scripts/check_unimplemented.py
+        run: poetry run python scripts/check_unimplemented.py | tee unimplemented-check.txt
+
+      - name: Upload check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unimplemented-check-results
+          path: unimplemented-check.txt
+          retention-days: 30
