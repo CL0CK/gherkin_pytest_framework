@@ -31,7 +31,8 @@ def test_view_cart(
             products_page.click_cart_icon()
         with steps.then("User sees the added product in the cart"):
             dto = TextElementDTO(value_text=product_name, contains_text=True)
-            checker.text.check(cart_page.cart_line_item().ITEM_NAME, dto)
+            line_item = cart_page.cart_line_item()
+            checker.text.check(line_item.locator(line_item.ITEM_NAME), dto)
 
     with steps.step():
         with steps.when("User clicks Continue Shopping"):

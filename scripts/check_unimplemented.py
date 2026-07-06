@@ -7,13 +7,13 @@ Usage:
 """
 
 import os
+from pathlib import Path
 import re
 import sys
-from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from utils.gherkin_parser import GherkinFeature, parse_feature_file
+from utils.gherkin_parser import parse_feature_file
 
 os.environ["PYTHONIOENCODING"] = "utf-8"
 
@@ -77,11 +77,17 @@ def main():
         implemented_all += implemented_count
         unimplemented_all += unimplemented_count
 
-        row = f"{feature_file:<25} | {total:>5} | {implemented_count:>11} | {unimplemented_count:>13} | {coverage:>6.1f}%"
+        row = (
+            f"{feature_file:<25} | {total:>5} | {implemented_count:>11} | "
+            f"{unimplemented_count:>13} | {coverage:>6.1f}%"
+        )
         rows.append(row)
 
     overall_coverage = (implemented_all / total_all * 100) if total_all > 0 else 0
-    total_row = f"{'TOTAL':<25} | {total_all:>5} | {implemented_all:>11} | {unimplemented_all:>13} | {overall_coverage:>6.1f}%"
+    total_row = (
+        f"{'TOTAL':<25} | {total_all:>5} | {implemented_all:>11} | "
+        f"{unimplemented_all:>13} | {overall_coverage:>6.1f}%"
+    )
 
     separator_line = "=" * len(header)
 

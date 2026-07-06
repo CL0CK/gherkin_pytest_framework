@@ -1,14 +1,10 @@
-from playwright.sync_api import Locator
-
+from pages.components.base_component import Component
 from utils.element import Element
 
 
-class ProductCard:
+class ProductCard(Component):
     ADD_TO_CART_BUTTON = Element(".btn_primary")
     REMOVE_BUTTON = Element(".btn_secondary")
-
-    def __init__(self, root: Locator) -> None:
-        self._root = root
 
     def add_to_cart(self) -> None:
         self._root.locator(self.ADD_TO_CART_BUTTON.selector).click()

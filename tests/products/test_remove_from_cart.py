@@ -27,4 +27,4 @@ def test_remove_from_cart(
         with steps.when(f'User removes "{product_name}" from the cart'):
             products_page.product_by_name(product_name).remove_from_cart()
         with steps.then("Cart badge shows a count of zero"):
-            checker.common.check_presence(products_page.CART_BADGE, ElementDTO(is_visible=True, is_hidden=True))
+            checker.common.check_presence(products_page.CART_BADGE, ElementDTO(is_visible=False, is_hidden=True))

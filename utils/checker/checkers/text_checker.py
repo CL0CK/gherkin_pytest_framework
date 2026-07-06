@@ -1,3 +1,5 @@
+from playwright.sync_api import Locator
+
 from utils.allure.step import CheckStep
 from utils.checker.checkers.common_checker import CommonChecker
 from utils.checker.dto import TextElementDTO
@@ -8,7 +10,7 @@ class TextChecker(CommonChecker):
     @CheckStep
     def check_text(
         self,
-        element: Element,
+        element: Element | Locator,
         value_text: str,
         contains_text: bool = False,
         timeout: int = 5000,
@@ -25,7 +27,7 @@ class TextChecker(CommonChecker):
     @CheckStep
     def check_font(
         self,
-        element: Element,
+        element: Element | Locator,
         expected_font_family: str | None = None,
         expected_font_size: str | None = None,
         timeout: int = 5000,
@@ -42,7 +44,7 @@ class TextChecker(CommonChecker):
                 actual_size == expected_font_size
             ), f"Expected font size '{expected_font_size}', got '{actual_size}'"
 
-    def check(self, element: Element, dto: TextElementDTO) -> None:
+    def check(self, element: Element | Locator, dto: TextElementDTO) -> None:
         if dto.value_text is not None:
             self.check_text(element, dto.value_text, dto.contains_text, dto.timeout)
         if dto.with_color_check and dto.expected_color is not None:

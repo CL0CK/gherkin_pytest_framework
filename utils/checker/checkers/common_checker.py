@@ -4,18 +4,18 @@ from playwright.sync_api import Locator, Page
 
 from utils.allure.step import CheckStep
 from utils.checker.dto import ElementDTO
-from utils.element import Element
+from utils.element import Element, resolve_locator
 
 
 class CommonChecker:
     def __init__(self, page: Page) -> None:
         self._page = page
 
-    def _locator(self, element: Element) -> Locator:
-        return self._page.locator(element.selector)
+    def _locator(self, element: Element | Locator) -> Locator:
+        return resolve_locator(self._page, element)
 
     @CheckStep
-    def check_presence(self, element: Element, dto: ElementDTO) -> None:
+    def check_presence(self, element: Element | Locator, dto: ElementDTO) -> None:
         locator = self._locator(element)
         if dto.is_visible and not dto.is_hidden:
             locator.first.wait_for(state="visible", timeout=dto.timeout)
@@ -26,7 +26,7 @@ class CommonChecker:
         end = time.time() + timeout / 1000
         while time.time() < end:
             try:
-                count = locator.count
+                count = locator.count()
                 if count == 0:
                     return
             except Exception:
@@ -37,7 +37,7 @@ class CommonChecker:
     @CheckStep
     def check_attribute(
         self,
-        element: Element,
+        element: Element | Locator,
         attribute: str,
         expected_value: str,
         contains: bool = False,
@@ -56,7 +56,7 @@ class CommonChecker:
     @CheckStep
     def check_color(
         self,
-        element: Element,
+        element: Element | Locator,
         expected_color: str,
         timeout: int = 5000,
     ) -> None:
