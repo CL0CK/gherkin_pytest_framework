@@ -11,6 +11,8 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from utils.gherkin_parser import GherkinFeature, parse_feature_file
 
 os.environ["PYTHONIOENCODING"] = "utf-8"
