@@ -16,8 +16,7 @@ import sys
 
 class NotificationAdapter(ABC):
     @abstractmethod
-    def send(self, message: str, image_path: str | None = None) -> None:
-        ...
+    def send(self, message: str, image_path: str | None = None) -> None: ...
 
 
 class SlackAdapter(NotificationAdapter):

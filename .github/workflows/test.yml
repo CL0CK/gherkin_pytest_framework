@@ -41,8 +41,16 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-py311-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            venv-${{ runner.os }}-py311-
+
       - name: Install dependencies
-        run: poetry install --no-interaction --no-root
+        run: poetry install --no-interaction
 
       - name: Run ruff
         run: poetry run ruff check .
@@ -50,14 +58,13 @@ jobs:
       - name: Run mypy
         run: poetry run mypy .
 
-
   test:
     needs: lint
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        browser: ${{ fromJSON(github.event_name == 'workflow_dispatch' && github.event.inputs.browser != 'all' && format('["{0}"]', github.event.inputs.browser) || '["chromium"]') }}
+        browser: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.browser == 'all' && '["chromium", "firefox", "webkit"]' || format('["{0}"]', github.event.inputs.browser || 'chromium') }}
 
     steps:
       - name: Checkout repository
@@ -83,10 +90,7 @@ jobs:
           restore-keys: |
             venv-${{ runner.os }}-py311-
 
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-root
-
-      - name: Install project
+      - name: Install project and dependencies
         run: poetry install --no-interaction
 
       - name: Cache Playwright browsers
@@ -94,6 +98,8 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
 
       - name: Install Playwright browsers
         run: poetry run playwright install --with-deps ${{ matrix.browser }}
@@ -116,12 +122,19 @@ jobs:
           path: allure-results/
           retention-days: 7
 
-  test-report:
+  publish-reports:
     needs: test
-    if: always()
+    if: ${{ !cancelled() && needs.test.result != 'skipped' }}
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
     permissions:
       contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -138,17 +151,25 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
 
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-root
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-py311-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            venv-${{ runner.os }}-py311-
 
-      - name: Download Allure results
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Download all results
         uses: actions/download-artifact@v4
         with:
           pattern: allure-results-*
           path: allure-results-merged
           merge-multiple: true
 
-      - name: Get previous test result
+      - name: Get previous Allure history and results
         uses: actions/checkout@v4
         continue-on-error: true
         with:
@@ -156,57 +177,11 @@ jobs:
           path: gh-pages
 
       - name: Generate test report
-        run: poetry run python scripts/generate_test_report.py allure-results-merged --previous gh-pages/last_result.json
-
-      - name: Commit previous result to gh-pages
         run: |
-          if [ -f gh-pages/last_result.json ] || [ -f reports/last_result.json ]; then
-            cp reports/last_result.json gh-pages/last_result.json 2>/dev/null || true
-            cd gh-pages
-            git config user.name "github-actions"
-            git config user.email "actions@github.com"
-            git add last_result.json
-            git diff --quiet && git diff --staged --quiet || git commit -m "update last_result.json"
-            git push
-          fi
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-report
-          path: reports/test-report.png
-          retention-days: 30
-
-  allure-report:
-    needs: test
-    if: always()
-    runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download all results
-        uses: actions/download-artifact@v4
-        with:
-          pattern: allure-results-*
-          path: allure-results-merged/all
-          merge-multiple: true
-
-      - name: Get previous Allure history
-        uses: actions/checkout@v4
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
+          poetry run python scripts/generate_test_report.py allure-results-merged \
+            --previous gh-pages/last_result.json \
+            --branch "${{ github.ref_name }}" \
+            --browser "${{ github.event.inputs.browser || 'chromium' }}"
 
       - name: Ensure gh-pages folder exists
         run: mkdir -p gh-pages
@@ -214,13 +189,21 @@ jobs:
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@v1.14
         with:
-          allure_results: allure-results-merged/all
+          allure_results: allure-results-merged
           allure_report: allure-report
           gh_pages: gh-pages
           allure_history: allure-history
           keep_reports: 20
 
-      - name: Persist Allure history for the next run
+      - name: Prepare last_result for deployment
+        run: |
+          mkdir -p allure-history
+          if [ -f reports/last_result.json ]; then
+            cp reports/last_result.json allure-history/last_result.json
+          elif [ -f gh-pages/last_result.json ]; then
+            cp gh-pages/last_result.json allure-history/last_result.json
+          fi
+      - name: Persist Allure history and last_result to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -233,6 +216,14 @@ jobs:
           name: allure-report
           path: allure-history/
           retention-days: 14
+
+      - name: Upload test report artifact (PNG)
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: reports/test-report.png
+          retention-days: 30
+          if-no-files-found: ignore
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

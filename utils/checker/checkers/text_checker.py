@@ -40,9 +40,7 @@ class TextChecker(CommonChecker):
             ), f"Expected font family '{expected_font_family}', got '{actual_family}'"
         if expected_font_size is not None:
             actual_size = locator.evaluate("el => window.getComputedStyle(el).fontSize")
-            assert (
-                actual_size == expected_font_size
-            ), f"Expected font size '{expected_font_size}', got '{actual_size}'"
+            assert actual_size == expected_font_size, f"Expected font size '{expected_font_size}', got '{actual_size}'"
 
     def check(self, element: Element | Locator, dto: TextElementDTO) -> None:
         if dto.value_text is not None:
