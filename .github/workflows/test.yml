@@ -64,8 +64,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.browser == 'all' && '["chromium", "firefox", "webkit"]' || format('["{0}"]', github.event.inputs.browser || 'chromium') }}
-
+        browser: ${{ fromJSON(github.event_name == 'workflow_dispatch' && github.event.inputs.browser == 'all' && '["chromium", "firefox", "webkit"]' || format('["{0}"]', github.event.inputs.browser || 'chromium')) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
