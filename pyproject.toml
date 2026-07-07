@@ -18,7 +18,6 @@ pyyaml = "^6.0.1"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.0"
 mypy = "^1.10.0"
-bandit = "^1.7.0"
 pre-commit = "^3.8.0"
 pytest-xdist = "^3.6.0"
 matplotlib = "^3.8.0"
@@ -97,13 +96,6 @@ pretty = true
 cache_dir = ".mypy_cache"
 incremental = true
 exclude = ["conftest\\.py$"]
-
-# ============================================================================
-# Bandit Configuration
-# ============================================================================
-
-[tool.bandit]
-exclude_dirs = ["/tests/", "/.venv/", "/venv/"]
 
 # ============================================================================
 # Pytest Configuration
