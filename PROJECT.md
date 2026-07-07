@@ -265,7 +265,7 @@ Unescaped dynamic values break CSS. Use Playwright's `Locator.filter()`.
 
 **Pipeline:**
 ```
-push/pull_request → lint (ruff + mypy + bandit) → test (pytest + xdist) → allure-report → pages-deployment
+push/pull_request → lint (ruff + mypy) → test (pytest + xdist) → allure-report → pages-deployment
 ```
 
 **Workflows:**
@@ -298,7 +298,7 @@ allure serve allure-results
 # Linting
 poetry run ruff check .
 poetry run mypy .
-poetry run bandit -r -ll --exclude tests/ .
+
 ```
 
 ## 9. Planned Tasks
