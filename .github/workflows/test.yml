@@ -147,7 +147,7 @@ jobs:
           merge-multiple: true
 
       - name: Generate test report
-        run: poetry run python scripts/generate_test_report.py
+        run: poetry run python scripts/generate_test_report.py allure-results-merged
 
       - name: Upload test report
         uses: actions/upload-artifact@v4

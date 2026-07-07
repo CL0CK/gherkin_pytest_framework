@@ -2,7 +2,8 @@
 Generates a test report PNG from Allure results using Painter.
 
 Usage:
-    poetry run python scripts/generate_test_report.py
+    poetry run python scripts/generate_test_report.py                # CI: uses allure-results-merged
+    poetry run python scripts/generate_test_report.py allure-results  # local: uses allure-results
 
 Output:
     reports/test-report.png
@@ -58,7 +59,7 @@ def parse_allure_results(allure_dir: str) -> dict:
 
 
 def main():
-    allure_dir = BASE_DIR / "allure-results-merged"
+    allure_dir = BASE_DIR / (sys.argv[1] if len(sys.argv) > 1 else "allure-results-merged")
     report_dir = BASE_DIR / "reports"
     report_dir.mkdir(exist_ok=True)
 
