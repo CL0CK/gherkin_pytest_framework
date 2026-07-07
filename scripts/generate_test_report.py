@@ -34,14 +34,15 @@ def parse_allure_results(allure_dir: str) -> dict:
             continue
 
         status = data.get("status", "")
-        if status in statuses:
-            statuses[status] += 1
+        if status not in statuses:
+            continue
+
+        statuses[status] += 1
+        total_cases += 1
 
         duration = data.get("duration")
         if duration is not None:
             total_duration += duration
-
-        total_cases += 1
 
     duration_minutes = int(total_duration // 60000)
     duration_seconds = int((total_duration % 60000) // 1000)
