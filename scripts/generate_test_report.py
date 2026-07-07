@@ -88,7 +88,9 @@ def parse_allure_results(allure_dir: str, app_version: str) -> dict:
 def main():
     parser = argparse.ArgumentParser(description="Generate PNG report from Allure results.")
     parser.add_argument("allure_dir", nargs="?", default="allure-results-merged", help="Path to allure results")
-    parser.add_argument("--previous", type=str, default="reports/last_result.json", help="Path to previous last_result.json")
+    parser.add_argument(
+        "--previous", type=str, default="reports/last_result.json", help="Path to previous last_result.json"
+    )
     parser.add_argument("--branch", type=str, default="main", help="Current git branch")
     parser.add_argument("--browser", type=str, default="chromium", help="Target browser/environment")
     parser.add_argument("--app-version", type=str, default=None, help="App version (defaults to pyproject.toml)")
