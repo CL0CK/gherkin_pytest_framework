@@ -74,7 +74,7 @@ def parse_allure_results(allure_dir: str, app_version: str) -> dict:
 
     session_date = ""
     if session_start is not None:
-        session_date = datetime.fromtimestamp(session_start / 1000).strftime("%Y-%m-%d")
+        session_date = datetime.fromtimestamp(session_start / 1000).strftime("%Y-%m-%d %H:%M")
 
     return {
         "number_of_cases": statuses,
@@ -82,6 +82,7 @@ def parse_allure_results(allure_dir: str, app_version: str) -> dict:
         "application_version": app_version,
         "test_session_date": session_date,
         "test_session_duration": duration_str,
+        "test_session_start": session_start,
     }
 
 
@@ -113,7 +114,12 @@ def main():
     report_data = {"today": data}
 
     try:
-        report_data["previous"] = json.loads(previous_path.read_text(encoding="utf-8"))
+        prev = json.loads(previous_path.read_text(encoding="utf-8"))
+        if prev.get("test_session_start") is not None:
+            prev["test_session_date"] = datetime.fromtimestamp(prev["test_session_start"] / 1000).strftime(
+                "%Y-%m-%d %H:%M"
+            )
+        report_data["previous"] = prev
         print(f"Loaded previous results from: {previous_path}")
     except (json.JSONDecodeError, FileNotFoundError, Exception):
         pass
