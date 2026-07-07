@@ -26,3 +26,5 @@ Thumbs.db
 .agents/
 .coverage
 skills-lock.json
+.playwright-mcp/
+opencode.json
