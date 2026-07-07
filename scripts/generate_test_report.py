@@ -57,7 +57,7 @@ def parse_allure_results(allure_dir: str) -> dict:
 
 
 def main():
-    allure_dir = BASE_DIR / "allure-results"
+    allure_dir = BASE_DIR / "allure-results-merged"
     report_dir = BASE_DIR / "reports"
     report_dir.mkdir(exist_ok=True)
 
