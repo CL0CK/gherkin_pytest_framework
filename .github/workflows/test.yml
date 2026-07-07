@@ -196,6 +196,9 @@ jobs:
 
       - name: Prepare last_result for deployment
         run: |
+          # Возвращаем права на папку обычному пользователю раннера
+          sudo chown -R $USER:$USER allure-history
+          
           mkdir -p allure-history
           if [ -f reports/last_result.json ]; then
             cp reports/last_result.json allure-history/last_result.json
