@@ -20,7 +20,7 @@ def get_project_version() -> str:
         if pyproject_path.exists():
             with open(pyproject_path, "rb") as f:
                 data = tomllib.load(f)
-            return data["tool"]["poetry"]["version"]
+            return str(data["tool"]["poetry"]["version"])
     except Exception:
         pass
     return "1.0.0"
