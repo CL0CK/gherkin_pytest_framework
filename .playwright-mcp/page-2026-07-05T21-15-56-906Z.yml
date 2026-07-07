@@ -1,0 +1,402 @@
+- generic [ref=f4e2]:
+  - generic [ref=f4e3]:
+    - link "Skip to content" [ref=f4e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f4e8]:
+      - generic [ref=f4e9]:
+        - generic [ref=f4e10]:
+          - button "Open menu" [ref=f4e12] [cursor=pointer]:
+            - img [ref=f4e13]
+          - link "Homepage (g then d)" [ref=f4e15] [cursor=pointer]:
+            - /url: /
+            - img [ref=f4e16]
+        - generic [ref=f4e18]:
+          - navigation "Breadcrumbs" [ref=f4e19]:
+            - list [ref=f4e20]:
+              - listitem [ref=f4e21]:
+                - link "CL0CK" [ref=f4e22] [cursor=pointer]:
+                  - /url: /CL0CK
+                  - generic [ref=f4e23]: CL0CK
+              - listitem [ref=f4e24]:
+                - link "gherkin_pytest_framework" [ref=f4e25] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework
+                - button "Switch repository (alt shift r)" [ref=f4e26] [cursor=pointer]:
+                  - img [ref=f4e27]
+          - button "Search or jump to…" [ref=f4e31] [cursor=pointer]:
+            - generic [ref=f4e32]:
+              - generic:
+                - img
+              - generic [ref=f4e33]:
+                - generic:
+                  - text: Type
+                  - generic: /
+                  - text: to search
+        - generic [ref=f4e34]:
+          - generic [ref=f4e35]:
+            - generic [ref=f4e38]:
+              - link "Chat with Copilot" [ref=f4e40] [cursor=pointer]:
+                - /url: /copilot
+                - img [ref=f4e41]
+              - button "Open Copilot…" [ref=f4e45] [cursor=pointer]:
+                - generic:
+                  - img
+            - button "Create new..." [ref=f4e47] [cursor=pointer]:
+              - generic [ref=f4e48]:
+                - generic:
+                  - img
+              - generic:
+                - img
+            - generic [ref=f4e49]:
+              - link "All issues" [ref=f4e50] [cursor=pointer]:
+                - /url: /issues
+                - img [ref=f4e51]
+              - link "All pull requests" [ref=f4e54] [cursor=pointer]:
+                - /url: /pulls
+                - img [ref=f4e55]
+              - link "All repositories" [ref=f4e57] [cursor=pointer]:
+                - /url: /repos
+                - img [ref=f4e58]
+          - link "You have no unread notifications (g then n)" [ref=f4e60] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=f4e61]
+          - button "Open user navigation menu" [ref=f4e64] [cursor=pointer]:
+            - img "User avatar" [ref=f4e65]
+      - heading "Repository navigation" [level=2] [ref=f4e66]
+      - navigation "Repository" [ref=f4e67]:
+        - list [ref=f4e68]:
+          - listitem [ref=f4e69]:
+            - link "Code" [ref=f4e70] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework
+              - img [ref=f4e72]
+              - generic [ref=f4e74]: Code
+          - listitem [ref=f4e75]:
+            - link "Issues" [ref=f4e76] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/issues
+              - img [ref=f4e78]
+              - generic [ref=f4e81]: Issues
+          - listitem [ref=f4e82]:
+            - link "Pull requests" [ref=f4e83] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/pulls
+              - img [ref=f4e85]
+              - generic [ref=f4e87]: Pull requests
+          - listitem [ref=f4e88]:
+            - link "Actions" [ref=f4e89] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/actions
+              - img [ref=f4e91]
+              - generic [ref=f4e93]: Actions
+          - listitem [ref=f4e94]:
+            - link "Projects" [ref=f4e95] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/projects
+              - img [ref=f4e97]
+              - generic [ref=f4e99]: Projects
+          - listitem [ref=f4e100]:
+            - link "Wiki" [ref=f4e101] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/wiki
+              - img [ref=f4e103]
+              - generic [ref=f4e105]: Wiki
+          - listitem [ref=f4e106]:
+            - link "Security and quality" [ref=f4e107] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/security
+              - img [ref=f4e109]
+              - generic [ref=f4e111]: Security and quality
+          - listitem [ref=f4e112]:
+            - link "Insights" [ref=f4e113] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/pulse
+              - img [ref=f4e115]
+              - generic [ref=f4e117]: Insights
+          - listitem [ref=f4e118]:
+            - link "Settings" [ref=f4e119] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/settings
+              - img [ref=f4e121]
+              - generic [ref=f4e123]: Settings
+  - main [ref=f4e126]:
+    - generic [ref=f4e128]:
+      - 'heading "Settings: CL0CK/gherkin_pytest_framework" [level=1] [ref=f4e129]'
+      - generic [ref=f4e131]:
+        - navigation "General settings" [ref=f4e134]:
+          - list [ref=f4e136]:
+            - listitem [ref=f4e137]:
+              - link "General" [ref=f4e138] [cursor=pointer]:
+                - /url: /CL0CK/gherkin_pytest_framework/settings
+                - generic:
+                  - img
+                - generic [ref=f4e139]: General
+            - listitem [ref=f4e140]
+            - listitem [ref=f4e141]:
+              - generic [ref=f4e144]:
+                - heading "Access" [level=2] [ref=f4e146]
+                - list "Access" [ref=f4e147]:
+                  - listitem [ref=f4e148]:
+                    - link "Collaborators" [ref=f4e149] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/access
+                      - generic:
+                        - img
+                      - generic [ref=f4e150]: Collaborators
+                  - listitem [ref=f4e151]:
+                    - button "Moderation options" [ref=f4e152] [cursor=pointer]:
+                      - generic:
+                        - img
+                      - generic [ref=f4e153]: Moderation options
+                      - generic:
+                        - img
+            - listitem [ref=f4e154]
+            - listitem [ref=f4e155]:
+              - generic [ref=f4e158]:
+                - heading "Code and automation" [level=2] [ref=f4e160]
+                - list "Code and automation" [ref=f4e161]:
+                  - listitem [ref=f4e162]:
+                    - link "Branches" [ref=f4e163] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/branches
+                      - generic:
+                        - img
+                      - generic [ref=f4e164]: Branches
+                  - listitem [ref=f4e165]:
+                    - link "Tags" [ref=f4e166] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/tag_protection
+                      - generic:
+                        - img
+                      - generic [ref=f4e167]: Tags
+                  - listitem [ref=f4e168]:
+                    - button "Rules" [ref=f4e169] [cursor=pointer]:
+                      - generic:
+                        - img
+                      - generic [ref=f4e170]: Rules
+                      - generic:
+                        - img
+                  - listitem [ref=f4e171]:
+                    - button "Actions" [ref=f4e172] [cursor=pointer]:
+                      - generic:
+                        - img
+                      - generic [ref=f4e173]: Actions
+                      - generic:
+                        - img
+                  - listitem [ref=f4e174]:
+                    - link "Webhooks" [ref=f4e175] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/hooks
+                      - generic:
+                        - img
+                      - generic [ref=f4e176]: Webhooks
+                  - listitem [ref=f4e177]:
+                    - button "Copilot" [ref=f4e178] [cursor=pointer]:
+                      - generic:
+                        - img
+                      - generic [ref=f4e179]: Copilot
+                      - generic:
+                        - img
+                  - listitem [ref=f4e180]:
+                    - link "Environments" [ref=f4e181] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/environments
+                      - generic:
+                        - img
+                      - generic [ref=f4e182]: Environments
+                  - listitem [ref=f4e183]:
+                    - link "Codespaces" [ref=f4e184] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/codespaces
+                      - generic:
+                        - img
+                      - generic [ref=f4e185]: Codespaces
+                  - listitem [ref=f4e186]:
+                    - link "Pages" [ref=f4e187] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/pages
+                      - generic:
+                        - img
+                      - generic [ref=f4e188]: Pages
+            - listitem [ref=f4e189]
+            - listitem [ref=f4e190]:
+              - generic [ref=f4e193]:
+                - heading "Security and quality" [level=2] [ref=f4e195]
+                - list "Security and quality" [ref=f4e196]:
+                  - listitem [ref=f4e197]:
+                    - link "Advanced Security" [ref=f4e198] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/security_analysis
+                      - generic:
+                        - img
+                      - generic [ref=f4e199]: Advanced Security
+                  - listitem [ref=f4e200]:
+                    - link "Deploy keys" [ref=f4e201] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/keys
+                      - generic:
+                        - img
+                      - generic [ref=f4e202]: Deploy keys
+                  - listitem [ref=f4e203]:
+                    - button "Secrets and variables" [ref=f4e204] [cursor=pointer]:
+                      - generic:
+                        - img
+                      - generic [ref=f4e205]: Secrets and variables
+                      - generic:
+                        - img
+            - listitem [ref=f4e206]
+            - listitem [ref=f4e207]:
+              - generic [ref=f4e210]:
+                - heading "Integrations" [level=2] [ref=f4e212]
+                - list "Integrations" [ref=f4e213]:
+                  - listitem [ref=f4e214]:
+                    - link "GitHub Apps" [ref=f4e215] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/installations
+                      - generic:
+                        - img
+                      - generic [ref=f4e216]: GitHub Apps
+                  - listitem [ref=f4e217]:
+                    - link "Email notifications" [ref=f4e218] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/settings/notifications
+                      - generic:
+                        - img
+                      - generic [ref=f4e219]: Email notifications
+        - generic [ref=f4e220]:
+          - heading "GitHub Pages" [level=2] [ref=f4e222]
+          - paragraph [ref=f4e223]:
+            - link "GitHub Pages" [ref=f4e224] [cursor=pointer]:
+              - /url: https://pages.github.com
+            - text: is designed to host your personal, organization, or project pages from a GitHub repository.
+          - generic [ref=f4e225]:
+            - generic [ref=f4e226]:
+              - generic [ref=f4e227]:
+                - text: Your site is live at
+                - link "https://cl0ck.github.io/gherkin_pytest_framework/" [ref=f4e228] [cursor=pointer]:
+                  - /url: https://cl0ck.github.io/gherkin_pytest_framework/
+              - generic [ref=f4e229]:
+                - text: Last
+                - link "deployed" [ref=f4e230] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753777476
+                - text: by
+                - img "@CL0CK" [ref=f4e231]
+                - link "CL0CK" [ref=f4e232] [cursor=pointer]:
+                  - /url: /CL0CK
+                - text: July 5, 2026 22:2451 minutes ago
+            - generic [ref=f4e233]:
+              - link "Visit site" [ref=f4e234] [cursor=pointer]:
+                - /url: https://cl0ck.github.io/gherkin_pytest_framework/
+                - img [ref=f4e235]
+                - text: Visit site
+              - button "Unpublish site" [ref=f4e237] [cursor=pointer]:
+                - generic [ref=f4e239]: Unpublish site
+          - heading "Build and deployment" [level=2] [ref=f4e240]
+          - generic [ref=f4e241]:
+            - generic [ref=f4e242]:
+              - text: Source
+              - button "Source Deploy from a branch" [ref=f4e246] [cursor=pointer]:
+                - generic [ref=f4e248]: Deploy from a branch
+                - generic:
+                  - img
+            - generic [ref=f4e251]:
+              - strong [ref=f4e252]: Branch
+              - paragraph [ref=f4e253]:
+                - text: Your GitHub Pages site is currently being built from the
+                - code [ref=f4e254]: main
+                - text: branch.
+                - link "Learn more about configuring the publishing source for your site" [ref=f4e255] [cursor=pointer]:
+                  - /url: https://docs.github.com/articles/configuring-a-publishing-source-for-github-pages/
+                - text: .
+              - generic [ref=f4e256]:
+                - button "main" [ref=f4e260] [cursor=pointer]:
+                  - generic [ref=f4e261]:
+                    - generic:
+                      - img
+                    - generic [ref=f4e262]: main
+                  - generic:
+                    - img
+                - button "/ (root)" [ref=f4e266] [cursor=pointer]:
+                  - generic [ref=f4e267]:
+                    - generic:
+                      - img
+                    - generic [ref=f4e268]: / (root)
+                  - generic:
+                    - img
+                - button "Save" [disabled] [ref=f4e269]
+              - paragraph [ref=f4e270]:
+                - text: Learn how to
+                - link "add a Jekyll theme" [ref=f4e271] [cursor=pointer]:
+                  - /url: https://docs.github.com/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
+                - text: to your site.
+          - generic [ref=f4e272]:
+            - text: Your site was last deployed to the
+            - link "github-pages" [ref=f4e273] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/deployments?environment=github-pages#activity-log
+            - text: environment by the
+            - link "pages build and deployment" [ref=f4e275] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753777476
+            - text: workflow.
+            - paragraph [ref=f4e276]:
+              - link "Learn more about deploying to GitHub Pages using custom workflows" [ref=f4e277] [cursor=pointer]:
+                - /url: https://docs.github.com/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow
+          - heading "Custom domain" [level=3] [ref=f4e278]
+          - generic [ref=f4e279]:
+            - generic [ref=f4e281]:
+              - term [ref=f4e282]:
+                - generic [ref=f4e283]: Custom domain
+                - paragraph [ref=f4e284]:
+                  - text: Custom domains allow you to serve your site from a domain other than
+                  - code [ref=f4e285]: cl0ck.github.io
+                  - text: .
+                  - link "Learn more about configuring custom domains" [ref=f4e286] [cursor=pointer]:
+                    - /url: https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site
+                  - text: .
+              - definition [ref=f4e287]:
+                - generic [ref=f4e288]:
+                  - textbox "Custom domain" [ref=f4e290]
+                  - generic [ref=f4e291]:
+                    - button "Save" [disabled] [ref=f4e292]
+                    - button "Remove" [disabled] [ref=f4e293]
+                - paragraph
+            - separator [ref=f4e294]
+          - generic [ref=f4e296]:
+            - checkbox "Enforce HTTPS — Required for your site because you are using the default domain (cl0ck.github.io)" [checked] [disabled] [ref=f4e297]
+            - generic [ref=f4e298]:
+              - text: Enforce HTTPS
+              - generic [ref=f4e299]:
+                - text: — Required for your site because you are using the default domain (
+                - code [ref=f4e300]: cl0ck.github.io
+                - text: )
+            - paragraph [ref=f4e302]:
+              - text: HTTPS provides a layer of encryption that prevents others from snooping on or tampering with traffic to your site.
+              - text: When HTTPS is enforced, your site will only be served over HTTPS.
+              - link "Learn more about securing your GitHub Pages site with HTTPS" [ref=f4e303] [cursor=pointer]:
+                - /url: https://docs.github.com/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https
+              - text: .
+          - generic [ref=f4e304]:
+            - generic [ref=f4e305]:
+              - heading "Visibility" [level=3] [ref=f4e306]
+              - generic [ref=f4e307]: GitHub Enterprise
+            - paragraph [ref=f4e308]:
+              - text: With a GitHub Enterprise account, you can restrict access to your GitHub Pages site by publishing it privately. You can use privately published sites to share your internal documentation or knowledge base with members of your enterprise. You can try GitHub Enterprise risk-free for 30 days.
+              - link "Learn more about the visibility of your GitHub Pages site." [ref=f4e309] [cursor=pointer]:
+                - /url: https://docs.github.com/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site
+            - link "Start free for 30 days" [ref=f4e310] [cursor=pointer]:
+              - /url: /account/enterprises/new
+              - generic [ref=f4e312]: Start free for 30 days
+  - contentinfo [ref=f4e313]:
+    - heading "Footer" [level=2] [ref=f4e314]
+    - generic [ref=f4e315]:
+      - generic [ref=f4e316]:
+        - link "GitHub Homepage" [ref=f4e317] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=f4e318]
+        - generic [ref=f4e320]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f4e321]:
+        - heading "Footer navigation" [level=3] [ref=f4e322]
+        - list "Footer navigation" [ref=f4e323]:
+          - listitem [ref=f4e324]:
+            - link "Terms" [ref=f4e325] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f4e326]:
+            - link "Privacy" [ref=f4e327] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f4e328]:
+            - link "Security" [ref=f4e329] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f4e330]:
+            - link "Status" [ref=f4e331] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f4e332]:
+            - link "Community" [ref=f4e333] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f4e334]:
+            - link "Docs" [ref=f4e335] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f4e336]:
+            - link "Contact" [ref=f4e337] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f4e338]:
+            - button "Manage cookies" [ref=f4e340] [cursor=pointer]
+          - listitem [ref=f4e341]:
+            - button "Do not share my personal information" [ref=f4e343] [cursor=pointer]

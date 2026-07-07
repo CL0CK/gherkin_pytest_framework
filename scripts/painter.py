@@ -18,7 +18,7 @@ class Painter:
 
     @classmethod
     def draw_rectangle(
-            cls, ax: Axes, size: Literal["small", "middle", "large"], x_coord: float | int, y_coord: float | int
+        cls, ax: Axes, size: Literal["small", "middle", "large"], x_coord: float | int, y_coord: float | int
     ) -> Patch:
         rectangle_sizes = {"small": (1.285, 2), "middle": (1.955, 2.1), "large": (3.975, 1.9)}
         return ax.add_patch(
@@ -29,29 +29,29 @@ class Painter:
 
     @classmethod
     def draw_tests_result_percentage(
-            cls, ax: Axes, percentage: str, x_coord: int | float, y_coord: int | float
+        cls, ax: Axes, percentage: str, x_coord: int | float, y_coord: int | float
     ) -> None:
         ax.text(x_coord, y_coord, f"{percentage}%", ha="left", va="center", fontsize=40, color="black")
 
     @classmethod
     def draw_test_tests_results_count(
-            cls, ax: Axes, cases_count: str, x_coord: int | float, y_coord: int | float
+        cls, ax: Axes, cases_count: str, x_coord: int | float, y_coord: int | float
     ) -> None:
         ax.text(x_coord, y_coord, f"{cases_count} cases", ha="left", va="center", fontsize=18, color="#575757")
 
     @classmethod
     def draw_rectangle_title(
-            cls, ax: Axes, text: str, color: str, x_coords: int | float, y_coords: int | float
+        cls, ax: Axes, text: str, color: str, x_coords: int | float, y_coords: int | float
     ) -> None:
         ax.text(x_coords, y_coords, text, ha="left", va="center", fontsize=14, color=color)
 
     @classmethod
     def draw_colored_line_in_rectangle(
-            cls,
-            ax: Axes,
-            color: str,
-            x_coords: list[int | float],
-            y_coords: list[int | float],
+        cls,
+        ax: Axes,
+        color: str,
+        x_coords: list[int | float],
+        y_coords: list[int | float],
     ) -> None:
         ax.add_line(Line2D(x_coords, y_coords, color=color, linewidth=3, solid_capstyle="round"))
 
@@ -61,19 +61,19 @@ class Painter:
 
     @classmethod
     def draw_session_duration_text(
-            cls, ax: Axes, execution_time: str, x_coord: int | float, y_coord: int | float
+        cls, ax: Axes, execution_time: str, x_coord: int | float, y_coord: int | float
     ) -> None:
         ax.text(x_coord, y_coord, execution_time, ha="center", va="center", fontsize=40, color="black")
 
     @classmethod
     def draw_duration_rectangle_with_info(
-            cls,
-            ax: Axes,
-            rectangle_size: Literal["small", "middle", "large"],
-            duration: str,
-            rectangle_coords: list[int | float],
-            title_coords: list[int | float],
-            duration_coords: list[int | float],
+        cls,
+        ax: Axes,
+        rectangle_size: Literal["small", "middle", "large"],
+        duration: str,
+        rectangle_coords: list[int | float],
+        title_coords: list[int | float],
+        duration_coords: list[int | float],
     ) -> None:
         cls.draw_rectangle(ax, rectangle_size, *rectangle_coords)
         cls.draw_duration_title_rectangle(ax, *title_coords)
@@ -81,18 +81,18 @@ class Painter:
 
     @classmethod
     def draw_rectangle_with_info(
-            cls,
-            ax: Axes,
-            rectangle_size: Literal["small", "middle", "large"],
-            title_text: str,
-            percent_status_text: str,
-            case_count_text: str,
-            inside_color: str,
-            rectangle_coords: list[int | float],
-            line_coords: list[list[int | float]],
-            title_coords: list[int | float],
-            percent_status_coords: list[int | float],
-            case_count_coords: list[int | float],
+        cls,
+        ax: Axes,
+        rectangle_size: Literal["small", "middle", "large"],
+        title_text: str,
+        percent_status_text: str,
+        case_count_text: str,
+        inside_color: str,
+        rectangle_coords: list[int | float],
+        line_coords: list[list[int | float]],
+        title_coords: list[int | float],
+        percent_status_coords: list[int | float],
+        case_count_coords: list[int | float],
     ) -> None:
         cls.draw_rectangle(ax, rectangle_size, *rectangle_coords)
         cls.draw_colored_line_in_rectangle(ax, inside_color, *line_coords)
@@ -217,18 +217,16 @@ class Painter:
 
     @classmethod
     def draw_text(
-            cls, ax: Axes, text: str, font_size: int, color: str, weight: str, x_coord: int | float,
-            y_coord: int | float
+        cls, ax: Axes, text: str, font_size: int, color: str, weight: str, x_coord: int | float, y_coord: int | float
     ) -> None:
         ax.text(x_coord, y_coord, text, ha="center", va="center", fontsize=font_size, color=color, weight=weight)
 
     @classmethod
     def configure_single_pie(
-            cls, data: dict, fig: plt.Figure, gs: object, title: str, subplot: Axes, side: Literal["left", "right"]
+        cls, data: dict, fig: plt.Figure, gs: object, title: str, subplot: Axes, side: Literal["left", "right"]
     ) -> None:
         ax: Axes = fig.add_subplot(gs)  # type: ignore
 
-        # ИСПРАВЛЕНО: Порядок строго совпадает со словарем statuses из генератора отчетов!
         colors = {
             "passed": "#97cc64",
             "failed": "#fc593e",

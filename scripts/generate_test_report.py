@@ -1,5 +1,5 @@
-import json
 import argparse
+import json
 import sys
 
 try:
@@ -58,12 +58,10 @@ def parse_allure_results(allure_dir: str, app_version: str) -> dict:
         start = data.get("start")
         stop = data.get("stop")
 
-        if start is not None:
-            if session_start is None or start < session_start:
-                session_start = start
-        if stop is not None:
-            if session_end is None or stop > session_end:
-                session_end = stop
+        if start is not None and (session_start is None or start < session_start):
+            session_start = start
+        if stop is not None and (session_end is None or stop > session_end):
+            session_end = stop
 
     if session_start and session_end:
         total_duration = session_end - session_start

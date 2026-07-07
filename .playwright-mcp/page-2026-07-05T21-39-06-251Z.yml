@@ -1,0 +1,644 @@
+- generic [ref=f26e2]:
+  - generic [ref=f26e3]:
+    - link "Skip to content" [ref=f26e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f26e8]:
+      - generic [ref=f26e9]:
+        - generic [ref=f26e10]:
+          - button "Open menu" [ref=f26e12] [cursor=pointer]:
+            - img [ref=f26e13]
+          - link "Homepage (g then d)" [ref=f26e15] [cursor=pointer]:
+            - /url: /
+            - img [ref=f26e16]
+        - generic [ref=f26e18]:
+          - navigation "Breadcrumbs" [ref=f26e19]:
+            - list [ref=f26e20]:
+              - listitem [ref=f26e21]:
+                - link "CL0CK" [ref=f26e22] [cursor=pointer]:
+                  - /url: /CL0CK
+                  - generic [ref=f26e23]: CL0CK
+              - listitem [ref=f26e24]:
+                - link "gherkin_pytest_framework" [ref=f26e25] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework
+                - button "Switch repository (alt shift r)" [ref=f26e26] [cursor=pointer]:
+                  - img [ref=f26e27]
+          - button "Search or jump to…" [ref=f26e31] [cursor=pointer]:
+            - generic [ref=f26e32]:
+              - generic:
+                - img
+              - generic [ref=f26e33]:
+                - generic:
+                  - text: Type
+                  - generic: /
+                  - text: to search
+        - generic [ref=f26e34]:
+          - generic [ref=f26e35]:
+            - generic [ref=f26e38]:
+              - link "Chat with Copilot" [ref=f26e40] [cursor=pointer]:
+                - /url: /copilot
+                - img [ref=f26e41]
+              - button "Open Copilot…" [ref=f26e45] [cursor=pointer]:
+                - generic:
+                  - img
+            - button "Create new..." [ref=f26e47] [cursor=pointer]:
+              - generic [ref=f26e48]:
+                - generic:
+                  - img
+              - generic:
+                - img
+            - generic [ref=f26e49]:
+              - link "All issues" [ref=f26e50] [cursor=pointer]:
+                - /url: /issues
+                - img [ref=f26e51]
+              - link "All pull requests" [ref=f26e54] [cursor=pointer]:
+                - /url: /pulls
+                - img [ref=f26e55]
+              - link "All repositories" [ref=f26e57] [cursor=pointer]:
+                - /url: /repos
+                - img [ref=f26e58]
+          - link "You have no unread notifications (g then n)" [ref=f26e60] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=f26e61]
+          - button "Open user navigation menu" [ref=f26e64] [cursor=pointer]:
+            - img "User avatar" [ref=f26e65]
+      - heading "Repository navigation" [level=2] [ref=f26e66]
+      - navigation "Repository" [ref=f26e67]:
+        - list [ref=f26e68]:
+          - listitem [ref=f26e69]:
+            - link "Code" [ref=f26e70] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework
+              - img [ref=f26e72]
+              - generic [ref=f26e74]: Code
+          - listitem [ref=f26e75]:
+            - link "Issues" [ref=f26e76] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/issues
+              - img [ref=f26e78]
+              - generic [ref=f26e81]: Issues
+          - listitem [ref=f26e82]:
+            - link "Pull requests" [ref=f26e83] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/pulls
+              - img [ref=f26e85]
+              - generic [ref=f26e87]: Pull requests
+          - listitem [ref=f26e88]:
+            - link "Actions" [ref=f26e89] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/actions
+              - img [ref=f26e91]
+              - generic [ref=f26e93]: Actions
+          - listitem [ref=f26e94]:
+            - link "Projects" [ref=f26e95] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/projects
+              - img [ref=f26e97]
+              - generic [ref=f26e99]: Projects
+          - listitem [ref=f26e100]:
+            - link "Wiki" [ref=f26e101] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/wiki
+              - img [ref=f26e103]
+              - generic [ref=f26e105]: Wiki
+          - listitem [ref=f26e106]:
+            - link "Security and quality" [ref=f26e107] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/security
+              - img [ref=f26e109]
+              - generic [ref=f26e111]: Security and quality
+          - listitem [ref=f26e112]:
+            - link "Insights" [ref=f26e113] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/pulse
+              - img [ref=f26e115]
+              - generic [ref=f26e117]: Insights
+          - listitem [ref=f26e118]:
+            - link "Settings" [ref=f26e119] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/settings
+              - img [ref=f26e121]
+              - generic [ref=f26e123]: Settings
+  - main [ref=f26e127]:
+    - generic [ref=f26e129]:
+      - 'heading "Actions: CL0CK/gherkin_pytest_framework" [level=1] [ref=f26e130]'
+      - generic [ref=f26e133]:
+        - generic [ref=f26e134]:
+          - generic [ref=f26e135]:
+            - heading "Actions" [level=2] [ref=f26e136]
+            - link "New workflow" [ref=f26e137] [cursor=pointer]:
+              - /url: /CL0CK/gherkin_pytest_framework/actions/new
+              - generic [ref=f26e139]: New workflow
+          - navigation "Actions Workflows" [ref=f26e143]:
+            - list [ref=f26e145]:
+              - listitem [ref=f26e146]:
+                - link "All workflows" [ref=f26e147] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/actions
+                  - generic [ref=f26e148]: All workflows
+              - listitem [ref=f26e149]
+              - listitem [ref=f26e150]:
+                - list "Workflows" [ref=f26e154]:
+                  - listitem [ref=f26e155]:
+                    - link "pages-build-deployment" [ref=f26e156] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/actions/workflows/pages/pages-build-deployment
+                      - generic [ref=f26e157]: pages-build-deployment
+                    - button "Pin pages-build-deployment" [ref=f26e158] [cursor=pointer]:
+                      - img
+                  - listitem [ref=f26e159]:
+                    - link "Playwright BDD Tests" [ref=f26e160] [cursor=pointer]:
+                      - /url: /CL0CK/gherkin_pytest_framework/actions/workflows/test.yml
+                      - generic [ref=f26e161]: Playwright BDD Tests
+                    - button "Pin Playwright BDD Tests" [ref=f26e162] [cursor=pointer]:
+                      - img
+              - listitem [ref=f26e163]
+              - listitem [ref=f26e164]:
+                - generic [ref=f26e167]:
+                  - heading "Management" [level=3] [ref=f26e169]
+                  - list "Management" [ref=f26e170]:
+                    - listitem [ref=f26e171]:
+                      - link "Caches" [ref=f26e172] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/actions/caches
+                        - generic:
+                          - img
+                        - generic [ref=f26e173]: Caches
+                    - listitem [ref=f26e174]:
+                      - link "Deployments" [ref=f26e175] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/deployments
+                        - generic:
+                          - img
+                        - generic [ref=f26e176]: Deployments
+                        - generic:
+                          - img
+                    - listitem [ref=f26e177]:
+                      - link "Attestations" [ref=f26e178] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/attestations
+                        - generic:
+                          - img
+                        - generic [ref=f26e179]: Attestations
+                        - generic:
+                          - img
+                    - listitem [ref=f26e180]:
+                      - link "Runners" [ref=f26e181] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/actions/runners
+                        - generic:
+                          - img
+                        - generic [ref=f26e182]: Runners
+                    - listitem [ref=f26e183]:
+                      - link "Usage metrics" [ref=f26e184] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/actions/metrics/usage
+                        - generic:
+                          - img
+                        - generic [ref=f26e185]: Usage metrics
+                        - generic:
+                          - img
+                    - listitem [ref=f26e186]:
+                      - link "Performance metrics" [ref=f26e187] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/actions/metrics/performance
+                        - generic:
+                          - img
+                        - generic [ref=f26e188]: Performance metrics
+                        - generic:
+                          - img
+        - generic [ref=f26e191]:
+          - generic [ref=f26e192]:
+            - generic [ref=f26e193]:
+              - heading "All workflows" [level=2] [ref=f26e195]:
+                - generic [ref=f26e197]: All workflows
+              - search [ref=f26e201]:
+                - combobox "Filter workflow runs" [ref=f26e202]
+                - img
+            - generic [ref=f26e203]: Showing runs from all workflows
+          - generic [ref=f26e206]:
+            - generic [ref=f26e207]:
+              - img [ref=f26e209]
+              - generic [ref=f26e211]:
+                - paragraph [ref=f26e212]: Help us improve GitHub Actions
+                - generic [ref=f26e213]: Tell us how to make GitHub Actions work better for you with three quick questions.
+            - generic [ref=f26e214]:
+              - button "Give feedback" [ref=f26e215] [cursor=pointer]:
+                - generic [ref=f26e217]: Give feedback
+              - button "Close GrowthBanner" [ref=f26e218] [cursor=pointer]:
+                - img [ref=f26e219]
+          - generic [ref=f26e221]:
+            - generic [ref=f26e222]:
+              - strong [ref=f26e225]: 15 workflow runs
+              - generic [ref=f26e226]:
+                - button "Workflow" [ref=f26e230] [cursor=pointer]:
+                  - generic [ref=f26e232]: Workflow
+                  - generic:
+                    - img
+                - button "Event" [ref=f26e236] [cursor=pointer]:
+                  - generic [ref=f26e238]: Event
+                  - generic:
+                    - img
+                - button "Status" [ref=f26e242] [cursor=pointer]:
+                  - generic [ref=f26e244]: Status
+                  - generic:
+                    - img
+                - button "Branch" [ref=f26e248] [cursor=pointer]:
+                  - generic [ref=f26e250]: Branch
+                  - generic:
+                    - img
+                - button "Actor" [ref=f26e254] [cursor=pointer]:
+                  - generic [ref=f26e256]: Actor
+                  - generic:
+                    - img
+            - generic [ref=f26e257]:
+              - generic [ref=f26e259]:
+                - generic [ref=f26e260]:
+                  - 'link "completed successfully: Run 14 of Playwright BDD Tests." [ref=f26e261] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28755615433
+                    - img "completed successfully:" [ref=f26e263]
+                    - generic [ref=f26e265]: Playwright BDD Tests
+                  - generic [ref=f26e266]:
+                    - text: "Playwright BDD Tests #14:"
+                    - generic [ref=f26e267]:
+                      - text: Manually run by
+                      - link "CL0CK" [ref=f26e268] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e270] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e272]:
+                  - generic [ref=f26e273]:
+                    - generic [ref=f26e274]:
+                      - img [ref=f26e276]
+                      - generic "Jul 5, 2026, 11:33 PM GMT+2" [ref=f26e278]: 5 minutes ago
+                    - generic [ref=f26e279]:
+                      - img "Run duration" [ref=f26e280]
+                      - text: 2m 3s
+                  - group [ref=f26e283]:
+                    - generic "Show options" [ref=f26e284] [cursor=pointer]:
+                      - img "Show options" [ref=f26e285]
+              - generic [ref=f26e288]:
+                - generic [ref=f26e289]:
+                  - 'link "failed: Run 13 of Playwright BDD Tests." [ref=f26e290] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28755483973
+                    - img "failed:" [ref=f26e292]
+                    - generic [ref=f26e294]: Playwright BDD Tests
+                  - generic [ref=f26e295]:
+                    - text: "Playwright BDD Tests #13:"
+                    - generic [ref=f26e296]:
+                      - text: Manually run by
+                      - link "CL0CK" [ref=f26e297] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e299] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e301]:
+                  - generic [ref=f26e302]:
+                    - generic [ref=f26e303]:
+                      - img [ref=f26e305]
+                      - generic "Jul 5, 2026, 11:28 PM GMT+2" [ref=f26e307]: 10 minutes ago
+                    - generic [ref=f26e308]:
+                      - img "Run duration" [ref=f26e309]
+                      - text: 1m 45s
+                  - group [ref=f26e312]:
+                    - generic "Show options" [ref=f26e313] [cursor=pointer]:
+                      - img "Show options" [ref=f26e314]
+              - generic [ref=f26e317]:
+                - generic [ref=f26e318]:
+                  - 'link "completed successfully: Run 1 of pages-build-deployment. pages build and deployment" [ref=f26e319] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753777476
+                    - img "completed successfully:" [ref=f26e321]
+                    - generic [ref=f26e323]: pages build and deployment
+                  - generic [ref=f26e324]:
+                    - text: "pages-build-deployment #1:"
+                    - generic [ref=f26e325]:
+                      - text: by
+                      - link "CL0CK" [ref=f26e326] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e328] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e330]:
+                  - generic [ref=f26e331]:
+                    - generic [ref=f26e332]:
+                      - img [ref=f26e334]
+                      - generic "Jul 5, 2026, 10:24 PM GMT+2" [ref=f26e336]: Today at 10:24 PM
+                    - generic [ref=f26e337]:
+                      - img "Run duration" [ref=f26e338]
+                      - text: 33s
+                  - group [ref=f26e341]:
+                    - generic "Show options" [ref=f26e342] [cursor=pointer]:
+                      - img "Show options" [ref=f26e343]
+              - generic [ref=f26e346]:
+                - generic [ref=f26e347]:
+                  - 'link "completed successfully: Run 12 of Playwright BDD Tests." [ref=f26e348] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753547517
+                    - img "completed successfully:" [ref=f26e350]
+                    - generic [ref=f26e352]: Playwright BDD Tests
+                  - generic [ref=f26e353]:
+                    - text: "Playwright BDD Tests #12:"
+                    - generic [ref=f26e354]:
+                      - text: Manually run by
+                      - link "CL0CK" [ref=f26e355] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e357] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e359]:
+                  - generic [ref=f26e360]:
+                    - generic [ref=f26e361]:
+                      - img [ref=f26e363]
+                      - generic "Jul 5, 2026, 10:16 PM GMT+2" [ref=f26e365]: Today at 10:16 PM
+                    - generic [ref=f26e366]:
+                      - img "Run duration" [ref=f26e367]
+                      - text: 1m 55s
+                  - group [ref=f26e370]:
+                    - generic "Show options" [ref=f26e371] [cursor=pointer]:
+                      - img "Show options" [ref=f26e372]
+              - generic [ref=f26e375]:
+                - generic [ref=f26e376]:
+                  - 'link "completed successfully: Run 11 of Playwright BDD Tests. ci: add workflow_dispatch for manual test runs with inputs" [ref=f26e377] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753481598
+                    - img "completed successfully:" [ref=f26e379]
+                    - generic [ref=f26e381]: "ci: add workflow_dispatch for manual test runs with inputs"
+                  - generic [ref=f26e382]:
+                    - text: "Playwright BDD Tests #11:"
+                    - generic [ref=f26e383]:
+                      - text: Commit
+                      - link "0d9e667" [ref=f26e384] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/0d9e6679d21ac3864cf1dd452aaeed5318fdc5e9
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e385] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e387] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e389]:
+                  - generic [ref=f26e390]:
+                    - generic [ref=f26e391]:
+                      - img [ref=f26e393]
+                      - generic "Jul 5, 2026, 10:13 PM GMT+2" [ref=f26e395]: Today at 10:13 PM
+                    - generic [ref=f26e396]:
+                      - img "Run duration" [ref=f26e397]
+                      - text: 2m 18s
+                  - group [ref=f26e400]:
+                    - generic "Show options" [ref=f26e401] [cursor=pointer]:
+                      - img "Show options" [ref=f26e402]
+              - generic [ref=f26e405]:
+                - generic [ref=f26e406]:
+                  - 'link "completed successfully: Run 10 of Playwright BDD Tests. fix: restore nested with structure in test_view_products, add ruff noqa" [ref=f26e407] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753344162
+                    - img "completed successfully:" [ref=f26e409]
+                    - generic [ref=f26e411]: "fix: restore nested with structure in test_view_products, add ruff noqa"
+                  - generic [ref=f26e412]:
+                    - text: "Playwright BDD Tests #10:"
+                    - generic [ref=f26e413]:
+                      - text: Commit
+                      - link "0374e24" [ref=f26e414] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/0374e24e4bab9cdaaa5ec1a6745fdbd6d4247c61
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e415] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e417] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e419]:
+                  - generic [ref=f26e420]:
+                    - generic [ref=f26e421]:
+                      - img [ref=f26e423]
+                      - generic "Jul 5, 2026, 10:08 PM GMT+2" [ref=f26e425]: Today at 10:08 PM
+                    - generic [ref=f26e426]:
+                      - img "Run duration" [ref=f26e427]
+                      - text: 2m 35s
+                  - group [ref=f26e430]:
+                    - generic "Show options" [ref=f26e431] [cursor=pointer]:
+                      - img "Show options" [ref=f26e432]
+              - generic [ref=f26e435]:
+                - generic [ref=f26e436]:
+                  - 'link "completed successfully: Run 9 of Playwright BDD Tests. fix: combine nested with statements in test_view_products (ruff SIM117)" [ref=f26e437] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753258723
+                    - img "completed successfully:" [ref=f26e439]
+                    - generic [ref=f26e441]: "fix: combine nested with statements in test_view_products (ruff SIM117)"
+                  - generic [ref=f26e442]:
+                    - text: "Playwright BDD Tests #9:"
+                    - generic [ref=f26e443]:
+                      - text: Commit
+                      - link "9e59fe0" [ref=f26e444] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/9e59fe0ef2eeef98bc1d4ac42da35dbe7764a331
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e445] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e447] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e449]:
+                  - generic [ref=f26e450]:
+                    - generic [ref=f26e451]:
+                      - img [ref=f26e453]
+                      - generic "Jul 5, 2026, 10:05 PM GMT+2" [ref=f26e455]: Today at 10:05 PM
+                    - generic [ref=f26e456]:
+                      - img "Run duration" [ref=f26e457]
+                      - text: 2m 41s
+                  - group [ref=f26e460]:
+                    - generic "Show options" [ref=f26e461] [cursor=pointer]:
+                      - img "Show options" [ref=f26e462]
+              - generic [ref=f26e465]:
+                - generic [ref=f26e466]:
+                  - 'link "failed: Run 8 of Playwright BDD Tests. chore: polish fixes — remove allure labels, fix CountChecker, add CI …" [ref=f26e467] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28753189738
+                    - img "failed:" [ref=f26e469]
+                    - generic [ref=f26e471]: "chore: polish fixes — remove allure labels, fix CountChecker, add CI …"
+                  - generic [ref=f26e472]:
+                    - text: "Playwright BDD Tests #8:"
+                    - generic [ref=f26e473]:
+                      - text: Commit
+                      - link "842bb93" [ref=f26e474] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/842bb93b78eb981590f06a767713c74555d38208
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e475] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e477] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e479]:
+                  - generic [ref=f26e480]:
+                    - generic [ref=f26e481]:
+                      - img [ref=f26e483]
+                      - generic "Jul 5, 2026, 10:02 PM GMT+2" [ref=f26e485]: Today at 10:02 PM
+                    - generic [ref=f26e486]:
+                      - img "Run duration" [ref=f26e487]
+                      - text: 51s
+                  - group [ref=f26e490]:
+                    - generic "Show options" [ref=f26e491] [cursor=pointer]:
+                      - img "Show options" [ref=f26e492]
+              - generic [ref=f26e495]:
+                - generic [ref=f26e496]:
+                  - 'link "completed successfully: Run 7 of Playwright BDD Tests. refactor: wire up DI + replace networkidle" [ref=f26e497] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28751867551
+                    - img "completed successfully:" [ref=f26e499]
+                    - generic [ref=f26e501]: "refactor: wire up DI + replace networkidle"
+                  - generic [ref=f26e502]:
+                    - text: "Playwright BDD Tests #7:"
+                    - generic [ref=f26e503]:
+                      - text: Commit
+                      - link "c3aa2b2" [ref=f26e504] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/c3aa2b21644bebf1c4077f8f9cdd7248294215f6
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e505] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e507] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e509]:
+                  - generic [ref=f26e510]:
+                    - generic [ref=f26e511]:
+                      - img [ref=f26e513]
+                      - generic "Jul 5, 2026, 9:14 PM GMT+2" [ref=f26e515]: Today at 9:14 PM
+                    - generic [ref=f26e516]:
+                      - img "Run duration" [ref=f26e517]
+                      - text: 2m 27s
+                  - group [ref=f26e520]:
+                    - generic "Show options" [ref=f26e521] [cursor=pointer]:
+                      - img "Show options" [ref=f26e522]
+              - generic [ref=f26e525]:
+                - generic [ref=f26e526]:
+                  - 'link "completed successfully: Run 6 of Playwright BDD Tests. refactor: stateless Element + delete broken selectors" [ref=f26e527] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28751721288
+                    - img "completed successfully:" [ref=f26e529]
+                    - generic [ref=f26e531]: "refactor: stateless Element + delete broken selectors"
+                  - generic [ref=f26e532]:
+                    - text: "Playwright BDD Tests #6:"
+                    - generic [ref=f26e533]:
+                      - text: Commit
+                      - link "d81688c" [ref=f26e534] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/d81688c8fd6ac9d660d65d8cb1ffbf280143217b
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e535] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e537] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e539]:
+                  - generic [ref=f26e540]:
+                    - generic [ref=f26e541]:
+                      - img [ref=f26e543]
+                      - generic "Jul 5, 2026, 9:09 PM GMT+2" [ref=f26e545]: Today at 9:09 PM
+                    - generic [ref=f26e546]:
+                      - img "Run duration" [ref=f26e547]
+                      - text: 1m 46s
+                  - group [ref=f26e550]:
+                    - generic "Show options" [ref=f26e551] [cursor=pointer]:
+                      - img "Show options" [ref=f26e552]
+              - generic [ref=f26e555]:
+                - generic [ref=f26e556]:
+                  - 'link "completed successfully: Run 5 of Playwright BDD Tests. feat: Scenario Outline + video on failure + parallel execution" [ref=f26e557] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28751227064
+                    - img "completed successfully:" [ref=f26e559]
+                    - generic [ref=f26e561]: "feat: Scenario Outline + video on failure + parallel execution"
+                  - generic [ref=f26e562]:
+                    - text: "Playwright BDD Tests #5:"
+                    - generic [ref=f26e563]:
+                      - text: Commit
+                      - link "08761f1" [ref=f26e564] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/08761f1ffe12061179a4b6129a745f7a8ae31e0b
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e565] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e567] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e569]:
+                  - generic [ref=f26e570]:
+                    - generic [ref=f26e571]:
+                      - img [ref=f26e573]
+                      - generic "Jul 5, 2026, 8:50 PM GMT+2" [ref=f26e575]: Today at 8:50 PM
+                    - generic [ref=f26e576]:
+                      - img "Run duration" [ref=f26e577]
+                      - text: 1m 43s
+                  - group [ref=f26e580]:
+                    - generic "Show options" [ref=f26e581] [cursor=pointer]:
+                      - img "Show options" [ref=f26e582]
+              - generic [ref=f26e585]:
+                - generic [ref=f26e586]:
+                  - 'link "completed successfully: Run 4 of Playwright BDD Tests. chore: remove skills-lock.json from git, add to .gitignore" [ref=f26e587] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28068304929
+                    - img "completed successfully:" [ref=f26e589]
+                    - generic [ref=f26e591]: "chore: remove skills-lock.json from git, add to .gitignore"
+                  - generic [ref=f26e592]:
+                    - text: "Playwright BDD Tests #4:"
+                    - generic [ref=f26e593]:
+                      - text: Commit
+                      - link "5b65655" [ref=f26e594] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/5b6565583d195c7cd1c34d27cd3a2df36665ec25
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e595] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e597] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e599]:
+                  - generic [ref=f26e600]:
+                    - generic [ref=f26e601]:
+                      - img [ref=f26e603]
+                      - generic "Jun 24, 2026, 3:14 AM GMT+2" [ref=f26e605]: Jun 24, 3:14 AM GMT+2
+                    - generic [ref=f26e606]:
+                      - img "Run duration" [ref=f26e607]
+                      - text: 1m 45s
+                  - group [ref=f26e610]:
+                    - generic "Show options" [ref=f26e611] [cursor=pointer]:
+                      - img "Show options" [ref=f26e612]
+              - generic [ref=f26e615]:
+                - generic [ref=f26e616]:
+                  - 'link "completed successfully: Run 3 of Playwright BDD Tests. refactor: checker architecture - Element stores page, checkers use el…" [ref=f26e617] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28068128590
+                    - img "completed successfully:" [ref=f26e619]
+                    - generic [ref=f26e621]: "refactor: checker architecture - Element stores page, checkers use el…"
+                  - generic [ref=f26e622]:
+                    - text: "Playwright BDD Tests #3:"
+                    - generic [ref=f26e623]:
+                      - text: Commit
+                      - link "b0ead25" [ref=f26e624] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/b0ead25acd1f0d26fd5ccb0f414db86bfc74dab2
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e625] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e627] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e629]:
+                  - generic [ref=f26e630]:
+                    - generic [ref=f26e631]:
+                      - img [ref=f26e633]
+                      - generic "Jun 24, 2026, 3:09 AM GMT+2" [ref=f26e635]: Jun 24, 3:09 AM GMT+2
+                    - generic [ref=f26e636]:
+                      - img "Run duration" [ref=f26e637]
+                      - text: 2m 10s
+                  - group [ref=f26e640]:
+                    - generic "Show options" [ref=f26e641] [cursor=pointer]:
+                      - img "Show options" [ref=f26e642]
+              - generic [ref=f26e645]:
+                - generic [ref=f26e646]:
+                  - 'link "completed successfully: Run 2 of Playwright BDD Tests. Refactor: allure_step to utils/allure, logger to utils/logger, PageLo…" [ref=f26e647] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/28044666432
+                    - img "completed successfully:" [ref=f26e649]
+                    - generic [ref=f26e651]: "Refactor: allure_step to utils/allure, logger to utils/logger, PageLo…"
+                  - generic [ref=f26e652]:
+                    - text: "Playwright BDD Tests #2:"
+                    - generic [ref=f26e653]:
+                      - text: Commit
+                      - link "48697d4" [ref=f26e654] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/48697d4c68ddd19b37a3b335a030c9e9b43202cd
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e655] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e657] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e659]:
+                  - generic [ref=f26e660]:
+                    - generic [ref=f26e661]:
+                      - img [ref=f26e663]
+                      - generic "Jun 23, 2026, 7:32 PM GMT+2" [ref=f26e665]: Jun 23, 7:32 PM GMT+2
+                    - generic [ref=f26e666]:
+                      - img "Run duration" [ref=f26e667]
+                      - text: 1m 56s
+                  - group [ref=f26e670]:
+                    - generic "Show options" [ref=f26e671] [cursor=pointer]:
+                      - img "Show options" [ref=f26e672]
+              - generic [ref=f26e675]:
+                - generic [ref=f26e676]:
+                  - 'link "completed successfully: Run 1 of Playwright BDD Tests. Initial commit: Playwright BDD framework with custom Gherkin parser" [ref=f26e677] [cursor=pointer]':
+                    - /url: /CL0CK/gherkin_pytest_framework/actions/runs/27077572856
+                    - img "completed successfully:" [ref=f26e679]
+                    - generic [ref=f26e681]: "Initial commit: Playwright BDD framework with custom Gherkin parser"
+                  - generic [ref=f26e682]:
+                    - text: "Playwright BDD Tests #1:"
+                    - generic [ref=f26e683]:
+                      - text: Commit
+                      - link "d29b051" [ref=f26e684] [cursor=pointer]:
+                        - /url: /CL0CK/gherkin_pytest_framework/commit/d29b051f0b585a1ec6a2b637ea273c8b0b2839ae
+                      - text: pushed by
+                      - link "CL0CK" [ref=f26e685] [cursor=pointer]:
+                        - /url: /CL0CK
+                - link "main" [ref=f26e687] [cursor=pointer]:
+                  - /url: /CL0CK/gherkin_pytest_framework/tree/refs/heads/main
+                - generic [ref=f26e689]:
+                  - generic [ref=f26e690]:
+                    - generic [ref=f26e691]:
+                      - img [ref=f26e693]
+                      - generic "Jun 7, 2026, 2:05 AM GMT+2" [ref=f26e695]: Jun 7, 2:05 AM GMT+2
+                    - generic [ref=f26e696]:
+                      - img "Run duration" [ref=f26e697]
+                      - text: 2m 18s
+                  - group [ref=f26e700]:
+                    - generic "Show options" [ref=f26e701] [cursor=pointer]:
+                      - img "Show options" [ref=f26e702]

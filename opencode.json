@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest",
+        "--extension"
+      ],
+      "env": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "0sjdViyh7k0xAD4-00fB34zkt9Hsp_yImdP-5e4vpDo"
+      },
+      "enabled": true
+    }
+  }
+}
