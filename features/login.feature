@@ -20,3 +20,8 @@ Feature: Login
     Then User is redirected to the products page
     When User clicks the cart icon
     Then User is redirected to the cart page
+
+  @smoke
+  Scenario: Login page accessibility check
+    Given User is on the SauceDemo login page
+    Then Page should meet accessibility standards

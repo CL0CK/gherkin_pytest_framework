@@ -1,3 +1,5 @@
+from playwright.sync_api import Page
+
 from pages.cart_page import CartPage
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
@@ -10,6 +12,7 @@ from utils.steps_wrapper import Gherkin, Steps
 @critical
 @Gherkin("login.feature", "Successful login and cart navigation")
 def test_successful_login(
+    page: Page,
     login_page: LoginPage,
     products_page: ProductsPage,
     cart_page: CartPage,
@@ -27,6 +30,7 @@ def test_successful_login(
             login_page.login(user["username"], user["password"])
         with steps.then("User is redirected to the products page"):
             checker.common.check_presence(products_page.PRODUCT_CONTAINER, ElementDTO(is_visible=True))
+            checker.image.check_screenshot(page.locator(".inventory_item").first, "product_item_baseline")
 
     with steps.step():
         with steps.when("User clicks the cart icon"):
