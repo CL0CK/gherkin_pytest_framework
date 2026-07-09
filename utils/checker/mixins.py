@@ -16,6 +16,7 @@ class ValueColorMixin:
 class ValueFontMixin:
     expected_font_family: str | None = None
     expected_font_size: str | None = None
+    expected_font_weight: str | None = None
     with_font_check: bool = False
 
 

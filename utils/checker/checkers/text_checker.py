@@ -30,6 +30,7 @@ class TextChecker(CommonChecker):
         element: Element | Locator,
         expected_font_family: str | None = None,
         expected_font_size: str | None = None,
+        expected_font_weight: str | None = None,
         timeout: int = 5000,
     ) -> None:
         locator = self._locator(element)
@@ -41,6 +42,11 @@ class TextChecker(CommonChecker):
         if expected_font_size is not None:
             actual_size = locator.evaluate("el => window.getComputedStyle(el).fontSize")
             assert actual_size == expected_font_size, f"Expected font size '{expected_font_size}', got '{actual_size}'"
+        if expected_font_weight is not None:
+            actual_weight = locator.evaluate("el => window.getComputedStyle(el).fontWeight")
+            assert actual_weight == expected_font_weight, (
+                f"Expected font weight '{expected_font_weight}', got '{actual_weight}'"
+            )
 
     def check(self, element: Element | Locator, dto: TextElementDTO) -> None:
         if dto.value_text is not None:
@@ -52,5 +58,6 @@ class TextChecker(CommonChecker):
                 element,
                 dto.expected_font_family,
                 dto.expected_font_size,
+                dto.expected_font_weight,
                 dto.timeout,
             )

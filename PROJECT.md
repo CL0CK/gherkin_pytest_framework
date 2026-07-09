@@ -261,6 +261,16 @@ Unescaped dynamic values break CSS. Use Playwright's `Locator.filter()`.
 ```
 `@Gherkin` requires `steps: Steps` in the function signature.
 
+**8. Comments inside test functions**
+```python
+# ❌ def test_login():
+#        with steps.given("..."):
+#            # This is a bad comment
+#            page.navigate("/")
+# ✅ Use Gherkin descriptions and external documentation instead of comments in code.
+```
+Comments are forbidden inside tests; the logic should be self-explanatory through Gherkin steps and clear naming.
+
 ## 7. CI/CD
 
 **Pipeline:**
@@ -295,10 +305,9 @@ poetry run pytest -v -k test_login
 poetry run pytest --alluredir=allure-results
 allure serve allure-results
 
-# Linting
+# Linting (MANDATORY after any project changes)
 poetry run ruff check .
 poetry run mypy .
-
 ```
 
 ## 9. Planned Tasks

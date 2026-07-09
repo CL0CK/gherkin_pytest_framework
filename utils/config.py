@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     screenshot_on_failure: bool = True
     video_on_failure: bool = True
 
+    visual_baseline_path: str = "data/visual/baselines"
+    image_mode: Literal["compare", "update"] = "compare"
+    a11y_fail_level: Literal["critical", "serious", "moderate", "minor"] = "minor"
+
     model_config = {
         "env_file": ".env",
         "env_file_encoding": "utf-8",
